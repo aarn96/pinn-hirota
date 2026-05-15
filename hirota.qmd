@@ -1,0 +1,168 @@
+---
+title: "Exploración con Hirota"
+---
+
+::: {.apartado-banner}
+[Apartado 4]{.apartado-num}
+
+## Exploración con Hirota
+
+::: {.descripcion}
+La calibración con NLS confirmó que el método funciona. Ahora lo extendemos a Hirota — una ecuación estructuralmente más compleja — y analizamos qué nos dice el patrón de error sobre la física que la red aprendió.
+
+**Pregunta I:** ¿Escala el método a una ecuación más compleja?  
+**Pregunta II:** ¿Qué nos dice el error sobre la física aprendida?
+:::
+:::
+
+---
+
+## Hirota N=1 — Reproducibilidad {.slide-titulo}
+
+[Comparación con Zhou & Yan (2021) · Solitón brillante]{.slide-subtitulo}
+
+::: {.caja-verde}
+[Configuración]{.etiqueta}
+Arquitectura: [2, 5×40, 2] · $(N_0, N_b, N_f)$: (50, 100, 10 000) · Dominio: $x \in [-10,10]$, $t \in [0,5]$  
+Adam: 5k · L-BFGS: 10k (4 647 alcanzadas) · Seed: 1234 · lr = 0.001
+:::
+
+| Métrica | Este trabajo | Zhou & Yan (2021) |
+|---|---|---|
+| $N_0$ / $N_b$ / $N_f$ | 50 / 100 / 10 000 | 100 / 200 / 10 000 |
+| Adam / L-BFGS | 5k / 10k | 10k / 10k |
+| Seed | 1234 | No reportada |
+| $\mathcal{E}_{L_2}\ \|q\|$ | [**3.22 × 10⁻³**]{.mejor} | 9.32 × 10⁻³ |
+| $\mathcal{E}_{L_2}\ u$ | [**1.86 × 10⁻²**]{.mejor} | 5.33 × 10⁻² |
+| $\mathcal{E}_{L_2}\ v$ | [**1.33 × 10⁻²**]{.mejor} | 3.85 × 10⁻² |
+| Tiempo (min) | [**8.23**]{.mejor} | 11.95 |
+
+::: {.caja-hallazgo}
+[Justificación de configuraciones base]{.etiqueta}
+Se reproduce el resultado de Zhou & Yan con menos datos y menos épocas de Adam, mejorando en todas las métricas. Esto establece la configuración base para los experimentos de N=2.
+:::
+
+---
+
+## Hirota N=2 Estado ligado — Exploración de configuraciones {.slide-titulo}
+
+[$(N_0, N_b, N_f)$: (50, 50, 10 000) · Adam 5k · L-BFGS 10k · Seed: 1234 · lr=5×10⁻⁴]{.slide-subtitulo}
+
+| Configuración | $\mathcal{E}_{L_2}\ \|q\|$ | $\mathcal{E}_{L_2}\ u$ | $\mathcal{E}_{L_2}\ v$ | Iter. L-BFGS | Tiempo (min) |
+|---|---|---|---|---|---|
+| $[3\times 40]$ | 6.59 × 10⁻² | 5.71 × 10⁻² | 1.51 × 10⁻¹ | 10 000 | 9.4 |
+| $[4\times 80]$ | 6.57 × 10⁻² | 4.86 × 10⁻² | 1.36 × 10⁻¹ | 7 598 | 11.8 |
+| $[5\times 80]$ | 6.53 × 10⁻² | 4.93 × 10⁻² | 1.37 × 10⁻¹ | 7 630 | 13.9 |
+
+::: {.caja-hipotesis}
+[Observación]{.etiqueta}
+Los errores son del mismo orden de magnitud en todas las configuraciones (~10⁻²–10⁻¹) — la arquitectura no explica la diferencia. Los errores son significativamente mayores que en NLS y Hirota N=1, lo que motiva la investigación del [Apartado 5](frontera.qmd).
+:::
+
+::: {.caja-hallazgo}
+[Dominio]{.etiqueta}
+$x \in [-5, 5]$, $t \in [0, 2\pi]$
+:::
+
+---
+
+## Hirota N=2 Colisión No Lineal — Sensibilidad a épocas {.slide-titulo}
+
+[Arquitectura: [2, 5×80, 2] · $(N_0, N_b, N_f)$: (50, 50, 10 000) · Seed: 1234 · lr=0.001]{.slide-subtitulo}
+
+| Experimento | $\mathcal{E}_{L_2}\ \|q\|$ | $\mathcal{E}_{L_2}\ u$ | $\mathcal{E}_{L_2}\ v$ | Iter. L-BFGS | Tiempo (min) |
+|---|---|---|---|---|---|
+| Adam 1k · L-BFGS 5k | 3.30 × 10⁻² | 5.17 × 10⁻² | 4.18 × 10⁻² | 5 000 | 6.9 |
+| Adam 1k · L-BFGS 20k | 5.92 × 10⁻³ | 9.26 × 10⁻³ | 8.43 × 10⁻³ | 14 123 | 17.7 |
+| Adam 2k · L-BFGS 5k | 2.11 × 10⁻² | 4.04 × 10⁻² | 3.31 × 10⁻² | 5 000 | 7.9 |
+| **Adam 5k · L-BFGS 10k** | **5.60 × 10⁻³** | **8.21 × 10⁻³** | **6.90 × 10⁻³** | **10 000** | **16.8** |
+| Adam 10k · L-BFGS 10k | 3.88 × 10⁻³ | 5.99 × 10⁻³ | 5.29 × 10⁻³ | 9 089 | 20.6 |
+
+::: {.caja-verde}
+[Benchmark seleccionado: Adam 5k · L-BFGS 10k]{.etiqueta}
+Error del mismo orden de magnitud que Adam 10k·L-BFGS 10k (~10⁻³), con 3.8 min menos de entrenamiento. Balance óptimo entre precisión y costo computacional.
+:::
+
+::: {.caja-hipotesis}
+[Observación]{.etiqueta}
+Adam 1k · L-BFGS 20k alcanza un error similar al benchmark: L-BFGS puede compensar un Adam corto si se le dan suficientes iteraciones. El presupuesto de refinamiento también importa.
+:::
+
+---
+
+## Hirota N=2 Colisión — Campos y evolución temporal {.slide-titulo}
+
+[$|q|$ exacta · predicha · error absoluto · Adam 5k · L-BFGS 10k]{.slide-subtitulo}
+
+::::: {.dos-col}
+:::: {}
+![Campo $|q|$: solución exacta, predicción PINN y error absoluto en el espacio $(x,t)$.](figures/C_field_h_Hir_N2Int_5kAdam_10kFGS.png){.lightbox fig-alt="Campos Hirota N=2 Colisión"}
+
+<video src="figures/L_solution_vs_error_Hir_N2Int_5kAdam_10kFGS.mp4" controls></video>
+::::
+
+:::: {}
+::: {.caja-hallazgo}
+[Qué observar]{.etiqueta}
+El error se concentra en la zona de colisión y en los bordes. Las estrías son visibles con patrones más complejos que en NLS — análisis formal en las correlaciones de Spearman a continuación.
+:::
+::::
+:::::
+
+---
+
+## Estructura del error — Correlaciones de Spearman {.slide-titulo}
+
+[Hirota N=2 Colisión · $n \sim 20\,000$ puntos · umbral práctico $|\rho| > 0.3$]{.slide-subtitulo}
+
+::::: {.dos-col}
+:::: {}
+| Experimento | $\rho_1$ | $\rho_2$ | $\rho_4$† |
+|---|---|---|---|
+| Adam 1k · L-BFGS 5k | +0.010 | +0.071 | −0.073 |
+| Adam 1k · L-BFGS 20k | +0.016 | +0.034 | +0.003 |
+| Adam 2k · L-BFGS 5k | +0.331 | +0.363 | +0.156 |
+| **Adam 5k · L-BFGS 10k** | **−0.427** | **−0.399** | **−0.196** |
+| Adam 10k · L-BFGS 10k | −0.359 | −0.333 | −0.090 |
+
+<p style="font-size:0.78rem;color:#5a6478;">† $\rho_4 < 0$ equivale a correlación positiva residuo–error (convención de código).</p>
+
+::: {.caja-hipotesis}
+[$\rho_1$, $\rho_2$ — Señal y convergencia]{.etiqueta}
+Experimentos convergidos: $\rho_1, \rho_2 < 0$ — error menor donde la amplitud es mayor. El cambio de signo es indicador indirecto de convergencia.
+:::
+::::
+
+:::: {}
+![Barras de error $L_2$ y correlaciones de Spearman para los experimentos de Hirota N=2 Colisión.](figures/F_l2_spearman_bars_arquitectura_HirN2.png){.lightbox fig-alt="Spearman Hirota N=2 Colisión"}
+::::
+:::::
+
+::: {.caja-hallazgo}
+[$\rho_4$ — Diagnóstico interno]{.etiqueta}
+El residuo PDE predice cualitativamente el error real sin solución analítica de referencia — implicación directa para geofísica. Magnitud moderada: la interpolación fuera de los puntos de colocación introduce error no capturado por el residuo.
+:::
+
+---
+
+## Conservación de $\mathcal{N}(t)$ — diagnóstico de fidelidad física {.slide-titulo}
+
+[$\mathcal{N}(t) = \int |\psi|^2\,dx$ · cantidad conservada de la familia NLS–Hirota]{.slide-subtitulo}
+
+![Conservación de la norma $\mathcal{N}(t)$ y error relativo $\Delta\mathcal{N}_\text{rel}(t)$ para los experimentos de Hirota N=2 Colisión.](figures/K_norm_conservation.png){.lightbox fig-alt="Conservación norma Hirota N=2 Colisión"}
+
+::::: {.dos-col}
+:::: {}
+::: {.caja-hipotesis}
+[¿Qué miden estas curvas?]{.etiqueta}
+CV $= 1.11\times10^{-6}$: la solución de referencia es numéricamente estable. $\Delta\mathcal{N}_\text{rel}(t) = |\mathcal{N}_\text{pred} - \mathcal{N}_\text{exact}| / \mathcal{N}_\text{exact}$ mide la desviación respecto a la cantidad conservada.
+:::
+::::
+
+:::: {}
+::: {.caja-hallazgo}
+[Resultado]{.etiqueta}
+Benchmark: $\max(\Delta\mathcal{N}_\text{rel}) = 9.78\times10^{-4}$ — por debajo del umbral $10^{-2}$. La PINN conserva $\mathcal{N}(t)$ sin imposición explícita, aprendiendo la estructura simétrica subyacente.
+:::
+::::
+:::::

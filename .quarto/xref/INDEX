@@ -1,0 +1,42 @@
+{
+  "calibracion.qmd": {
+    "calibracion.html": "e54a25e1",
+    "calibracion.tex": "d4770752"
+  },
+  "exploracion.qmd": {
+    "exploracion.html": "06a03157",
+    "exploracion.tex": "5e33b63c"
+  },
+  "formulacion.qmd": {
+    "formulacion.html": "e8bc63f6",
+    "formulacion.tex": "08a7a741"
+  },
+  "frontera.qmd": {
+    "frontera.html": "40f3c406",
+    "frontera.tex": "85f33077"
+  },
+  "fronteras.qmd": {
+    "fronteras.html": "a66412b4",
+    "fronteras.tex": "d70e28cc"
+  },
+  "hirota.qmd": {
+    "hirota.html": "6fe81a5b",
+    "hirota.tex": "ff1f0f04"
+  },
+  "index.qmd": {
+    "index.html": "f0987fc3",
+    "index.tex": "5d172cc0"
+  },
+  "muestreo.qmd": {
+    "muestreo.html": "31b26014",
+    "muestreo.tex": "0d7c4e77"
+  },
+  "PUBLICAR_GITHUB_PAGES.md": {
+    "PUBLICAR_GITHUB_PAGES.html": "1e2c309e",
+    "PUBLICAR_GITHUB_PAGES.tex": "c9adb21a"
+  },
+  "sintesis.qmd": {
+    "sintesis.html": "6697f789",
+    "sintesis.tex": "7ceee46a"
+  }
+}

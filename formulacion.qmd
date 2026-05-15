@@ -1,0 +1,147 @@
+---
+title: "Formulación: Ecuación de Hirota y Arquitectura PINN"
+---
+
+::: {.apartado-banner}
+[Apartado 2]{.apartado-num}
+
+## Formulación:<br>Ecuación de Hirota y arquitectura PINN
+
+::: {.descripcion}
+La ecuación, sus parámetros, las soluciones de referencia.  
+La red neuronal, la función de pérdida y el protocolo de entrenamiento.
+:::
+:::
+
+---
+
+## Ecuación de Hirota {.slide-titulo}
+
+[NLSE de tercer orden — generalización con dispersión cúbica]{.slide-subtitulo}
+
+::: {.ecuacion-destacada}
+$$i\psi_t + 6iR_3|\psi|^2\psi_x + \tfrac{1}{2}D_2\psi_{xx} + iD_3\psi_{xxx} + R_2|\psi|^2\psi = 0$$
+:::
+
+::::: {.dos-col}
+:::: {}
+::: {.col-label}
+Parámetros usados
+:::
+
+| Parámetro | Valor | Rol |
+|-----------|-------|-----|
+| $D_2$ | 1.0 | Dispersión lineal (2° orden) |
+| $D_3$ | 0.01 | Dispersión cúbica (tipo KdV) |
+| $R_2$ | 1.0 | No linealidad cúbica (tipo NLS) |
+| $R_3$ | 0.01 | No linealidad dispersiva |
+::::
+
+:::: {}
+::: {.col-label}
+Jerarquía de ecuaciones
+:::
+
+- $D_3, R_3 \to 0$: recupera NLS cúbica
+- Límite apropiado: recupera mKdV
+- **KdV es caso límite** — puente directo a ondas internas y Rossby
+
+::: {.col-label}
+Soluciones de referencia
+:::
+
+- $N=1$: solitón brillante
+- $N=2$: estado ligado (bound state)
+- $N=2$: colisión no lineal (interaction)
+::::
+:::::
+
+---
+
+## Arquitectura PINN {.slide-titulo}
+
+::::: {.dos-col}
+:::: {}
+::: {.red-diagrama}
+[Entradas: (x, t)]{.io}  
+<span style="font-size:0.85em;color:#C9D6E3;">normalizadas a [−1, 1]</span>  
+[↓]{.flecha}  
+[Capas ocultas × N]{.capa}  
+[activación: Tanh]{.activacion}  
+<span style="font-size:0.75em;color:#C9D6E3;">init: Xavier normal</span>  
+[↓]{.flecha}  
+[Capa de salida]{.capa}  
+[sin activación (lineal)]{.activacion}  
+[↓]{.flecha}  
+[Salidas: (u, v) = Re(q), Im(q)]{.io}
+:::
+
+<p style="font-size:0.75rem;color:#1B3A5C;margin-top:0.8rem;">
+Derivadas vía diferenciación automática (autograd PyTorch)<br>
+Hardware: GPU (Google Colab) · Framework: PyTorch
+</p>
+::::
+
+:::: {}
+::: {.col-label}
+Función de pérdida
+:::
+
+::: {.ecuacion-destacada style="font-size:0.88rem;"}
+$$\mathcal{L} = \underbrace{\text{MSE}_{IC}}_{\text{condición inicial}} + \underbrace{\text{MSE}_{BC}}_{\text{fronteras}} + \underbrace{\text{MSE}_{Res}}_{\text{residuo PDE}}$$
+:::
+
+::: {.col-label}
+Protocolo de optimización
+:::
+
+- **Fase 1 — Adam:** exploración global del espacio de parámetros
+- **Fase 2 — L-BFGS** (Strong Wolfe): refinamiento cuasi-Newton
+- Puntos de colocación: Latin Hypercube Sampling
+
+::: {.col-label}
+Salidas guardadas por experimento
+:::
+
+- `.npz` — resultados numéricos y campos
+- `.json` — metadatos y métricas
+- `.pt` — pesos de la red
+::::
+:::::
+
+---
+
+## Objetivo e hipótesis {.slide-titulo}
+
+::: {.caja-hipotesis}
+[Objetivo general]{.etiqueta}
+Desarrollar y caracterizar PINNs para ecuaciones no lineales dispersivas relevantes en fluidos geofísicos, identificando configuraciones óptimas y limitaciones metodológicas que establezcan las bases para su futura aplicación a problemas realistas en oceanografía y dinámica atmosférica.
+:::
+
+::: {.caja-hipotesis}
+[Hipótesis de partida]{.etiqueta}
+Una PINN bien configurada puede aproximar soluciones de NLS e Hirota con alta precisión, seleccionando adecuadamente arquitectura, puntos de colocación y condiciones de frontera.
+:::
+
+::: {.caja-hallazgo}
+[Lo que encontramos]{.etiqueta}
+Las condiciones de frontera analíticas no solo son innecesarias — imponerlas cuando esa física no está representada en los datos **degrada** la predicción. La red solo aprende física presente en los datos de entrenamiento.
+:::
+
+---
+
+## Experimentos realizados {.slide-titulo}
+
+| Ecuación | $N$ solitones | Tipo | Experimentos |
+|----------|--------------|------|--------------|
+| **NLS** | 1 | Solitón brillante | Sensibilidad a arquitectura, régimen de datos, gradientes |
+| **NLS** | 2 | Estado ligado | Predicción y evaluación |
+| **NLS** | 2 | Colisión no lineal | Predicción y evaluación |
+| **Hirota** | 1 | Solitón brillante | Reproducibilidad, estudio de 5 modos BC, recortes de dominio |
+| **Hirota** | 2 | Estado ligado | Arquitectura × BC × conservación $\mathcal{N}(t)$ |
+| **Hirota** | 2 | Colisión no lineal | Épocas Adam × L-BFGS, BC, recortes de dominio |
+| **Hirota (3 casos)** | — | — | LHS vs Sobol vs Grid vs Random · Sin BC |
+
+::: {.destacado}
+**Total: 61 entrenamientos** · GPU (Google Colab) · PyTorch
+:::

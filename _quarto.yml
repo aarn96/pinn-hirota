@@ -1,0 +1,53 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "PINNs — Ecuación de Hirota"
+  description: "Aplicación de Redes Neuronales Informadas por la Física a ecuaciones no lineales en Ciencias de la Atmósfera y el Océano"
+
+  navbar:
+    background: "#0D1B2A"
+    foreground: "#F4F7F9"
+    left:
+      - text: "Inicio"
+        file: index.qmd
+      - text: "Formulación"
+        file: formulacion.qmd
+      - text: "Calibración NLS"
+        file: calibracion.qmd
+      - text: "Exploración Hirota"
+        file: hirota.qmd
+      - text: "Cond. de Frontera"
+        file: frontera.qmd
+      - text: "Muestreo"
+        file: muestreo.qmd
+      - text: "Síntesis"
+        file: sintesis.qmd
+          right:
+      - icon: github
+        href: https://github.com/aarn96/pinn-hirota.git
+        aria-label: GitHub
+
+  page-footer:
+    left: "Aaron Ernesto Contreras Roque · ICAYCC-UNAM · Mayo 2026"
+    right: "Construido con [Quarto](https://quarto.org)"
+
+format:
+  html:
+    theme:
+      - cosmo
+      - custom.scss
+    lightbox: true
+    toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    smooth-scroll: true
+    fig-align: center
+    fig-cap-location: bottom
+    html-math-method: mathjax
+
+execute:
+  echo: false
+  warning: false
+  freeze: auto

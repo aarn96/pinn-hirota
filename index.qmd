@@ -1,0 +1,82 @@
+---
+title: ""
+format:
+  html:
+    toc: false
+---
+
+::: {.portada-hero}
+[Seminario de Investigación IV · 13 de mayo de 2026]{.subtitle}
+
+# Aplicación de Redes Neuronales<br>Informadas por la Física (PINNs)<br>a Ecuaciones No Lineales Relevantes<br>en Ciencias de la Atmósfera y el Océano
+
+::: {.autor}
+Aaron Ernesto Contreras Roque  
+[Posgrado en Ciencias de la Tierra · Instituto de Ciencias de la Atmósfera y Cambio Climático · UNAM]{.institucion}
+:::
+
+[Avances de investigación — Reporte de resultados]{.fecha}
+:::
+
+## Estructura de la presentación
+
+::::: {.dos-col}
+:::: {}
+::: {.col-label}
+Apartados
+:::
+
+- **1.** Motivación geofísica
+- **2.** [Formulación: Hirota + PINN](formulacion.qmd)
+- **3.** [Calibración con NLS](calibracion.qmd)
+- **4.** [Exploración con Hirota](hirota.qmd)
+- **5.** [Condiciones de frontera](frontera.qmd)
+- **6.** [Estrategias de muestreo](muestreo.qmd)
+- **7.** [Síntesis e implicaciones](sintesis.qmd)
+::::
+
+:::: {}
+::: {.col-label}
+Hilo conductor
+:::
+
+Las ondas no lineales son ubicuas en geofísica. La ecuación de Hirota las generaliza con dispersión de tercer orden.
+
+Este trabajo es un **estudio de viabilidad**: ¿pueden las PINNs aprender esta física de manera confiable?
+
+La respuesta es sí — y el proceso reveló algo más interesante que el resultado original.
+::::
+:::::
+
+---
+
+## Apartado 1 — Motivación geofísica {.slide-titulo}
+
+::::: {.dos-col}
+:::: {}
+::: {.col-label}
+¿Dónde las vemos?
+:::
+
+- Ondas internas oceánicas en estratificación
+- Ondas de Rossby y trenes de ondas atmosféricas
+- Solitones en la termoclina
+- Bloqueos atmosféricos persistentes
+- Ondas atrapadas, de Lee, de valle
+::::
+
+:::: {}
+::: {.col-label}
+El reto de modelarlas
+:::
+
+- Interacciones multiescala difíciles de resolver con discretización clásica
+- Procesos no lineales frecuentemente parametrizados o truncados
+- Migración habitual a modelos espectrales que sacrifican resolución local
+- Las PINNs: una estrategia *complementaria*, sin malla, que incorpora la física directamente
+::::
+:::::
+
+::: {.aviso-viabilidad}
+Este trabajo es un estudio de viabilidad metodológica — no una propuesta de reemplazo de métodos establecidos.
+:::

@@ -1,0 +1,111 @@
+---
+title: "Síntesis e Implicaciones"
+---
+
+::: {.apartado-banner}
+[Apartado 7]{.apartado-num}
+
+## Síntesis e Implicaciones
+
+::: {.descripcion}
+Seis apartados, 61 entrenamientos, tres ecuaciones.
+
+**Pregunta:** ¿Qué aprendimos y qué implica para la geofísica?
+:::
+:::
+
+---
+
+## Síntesis — Lo que encontramos {.slide-titulo}
+
+::: {.tarjeta-grid}
+::: {.tarjeta .tarjeta-verde}
+[1]{.tarjeta-num}
+**El método es viable**  
+PINNs resuelven NLS e Hirota N=1 y N=2 con errores $\mathcal{E}_{L_2}$ del orden 10⁻³–10⁻². La calibración con NLS es transferible a Hirota.
+:::
+
+::: {.tarjeta .tarjeta-naranja}
+[2]{.tarjeta-num}
+**La red solo aprende física presente en los datos**  
+Sin BC es suficiente — imponer derivadas artificiales degrada la predicción. El error crece donde la física impuesta es inconsistente con los datos.
+:::
+
+::: {.tarjeta .tarjeta-azul}
+[3]{.tarjeta-num}
+**El error tiene estructura intrínseca**  
+Las estrías de error bajo coinciden con regiones de baja amplitud y gradiente suave. $\rho_3 \approx 0$: no son artefacto del muestreo. El signo de $\rho_1$ es indicador indirecto de convergencia.
+:::
+:::
+
+::: {.tarjeta-grid}
+::: {.tarjeta .tarjeta-cian}
+[4]{.tarjeta-num}
+**El residuo PDE como diagnóstico interno**  
+$\rho_4 > 0$: el residuo predice cualitativamente el error real. La PINN puede auto-diagnosticarse sin solución analítica de referencia.
+:::
+
+::: {.tarjeta .tarjeta-naranja}
+[5]{.tarjeta-num}
+**Conservación inherente**  
+La PINN sigue la dinámica de $\mathcal{N}(t)$ presente en los datos — incluyendo la fuga estructurada del dominio truncado — sin imposición explícita. LHS y Sobol son robustos; Grid es sensible al aspect ratio.
+:::
+:::
+
+---
+
+## Implicaciones geofísicas y trabajo futuro {.slide-titulo}
+
+::::: {.dos-col}
+:::: {}
+::: {.caja-verde}
+[Implicación geofísica]{.etiqueta}
+$\rho_4 > 0$: el residuo PDE predice el error real. Permite usar la PINN como herramienta de diagnóstico sin solución analítica de referencia — condición habitual en datos oceánicos y atmosféricos. La metodología es extensible a KdV (caso límite de Hirota) y a sistemas más complejos.
+:::
+
+::: {.caja-hipotesis}
+[Puente metodológico]{.etiqueta}
+KdV es caso límite de Hirota ($D_3, R_3 \to 0$) — relevante para ondas internas oceánicas y ondas de Rossby. El hallazgo de que No BC es suficiente tiene implicación directa: basta la condición inicial y la ecuación para entrenar una PINN confiable con datos geofísicos reales.
+:::
+::::
+
+:::: {}
+::: {.caja-hipotesis}
+[Trabajo futuro — extensiones]{.etiqueta}
+- Extensión a KdV forzada y ondas de Rossby
+- Condición inicial desde datos observacionales reales
+- PDE Discovery — inferir parámetros desde datos
+- Predicción fuera del dominio de entrenamiento
+:::
+
+::: {.caja-hallazgo}
+[Trabajo futuro — mejoras metodológicas]{.etiqueta}
+- Pesos adaptativos en la función de pérdida
+- Muestreo adaptativo guiado por el residuo PDE
+- Arquitecturas alternativas: Fourier Networks
+- Validación con soluciones numéricas de referencia
+:::
+::::
+:::::
+
+---
+
+## Referencias principales {.slide-titulo}
+
+- Hirota, R. (1973). Exact Envelope-Soliton Solutions of a Nonlinear Wave Equation. *Journal of Mathematical Physics*, 14, 805–809.
+
+- Raissi, M., Perdikaris, P., & Karniadakis, G. E. (2019). Physics-informed neural networks: A deep learning framework for solving forward and inverse problems involving nonlinear PDEs. *Journal of Computational Physics*, 378, 686–707.
+
+- Satsuma, J., & Yajima, N. (1974). Initial Value Problems of One-Dimensional Self-Modulation of Nonlinear Waves in Dispersive Media. *Progress of Theoretical Physics Supplement*, 55, 284–306.
+
+- Serkin, L., & Belyaeva, T. L. (2025). Physics-Informed Neural Networks for Higher-Order Nonlinear Schrödinger Equations. *Mathematics*, 13(11), 1882.
+
+- Zhou, Z., & Yan, Z. (2021). Deep learning neural networks for the third-order nonlinear Schrödinger equation. *Communications in Theoretical Physics*, 73(10), 105006.
+
+---
+
+::: {style="text-align:center; margin-top:3rem;"}
+<p style="font-size:1.6rem; color:#2E86AB; font-weight:bold; margin-bottom:0.5rem;">Muchas gracias</p>
+<p style="font-size:0.85rem; color:#1B3A5C;">Aaron Ernesto Contreras Roque · ICAYCC-UNAM · Mayo 2026</p>
+<p style="font-size:0.75rem; color:#C9D6E3; margin-top:0.8rem;">¿Preguntas?</p>
+:::
