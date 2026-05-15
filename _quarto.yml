@@ -24,7 +24,7 @@ website:
         file: muestreo.qmd
       - text: "Síntesis"
         file: sintesis.qmd
-          right:
+    right:
       - icon: github
         href: https://github.com/aarn96/pinn-hirota.git
         aria-label: GitHub

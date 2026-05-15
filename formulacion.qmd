@@ -88,7 +88,7 @@ Función de pérdida
 :::
 
 ::: {.ecuacion-destacada style="font-size:0.88rem;"}
-$$\mathcal{L} = \underbrace{\text{MSE}_{IC}}_{\text{condición inicial}} + \underbrace{\text{MSE}_{BC}}_{\text{fronteras}} + \underbrace{\text{MSE}_{Res}}_{\text{residuo PDE}}$$
+$$\displaystyle\mathcal{L} = \underbrace{\text{MSE}_{IC}}_{\text{condición inicial}} + \underbrace{\text{MSE}_{BC}}_{\text{fronteras}} + \underbrace{\text{MSE}_{Res}}_{\text{residuo PDE}}$$
 :::
 
 ::: {.col-label}
