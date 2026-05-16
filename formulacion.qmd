@@ -77,7 +77,7 @@ Soluciones de referencia
 :::
 
 <p style="font-size:0.75rem;color:#1B3A5C;margin-top:0.8rem;">
-Derivadas vía diferenciación automática (autograd PyTorch)<br>
+Derivadas vía diferenciación automática (autograd PyTorch) ·
 Hardware: GPU (Google Colab) · Framework: PyTorch
 </p>
 ::::
@@ -87,8 +87,8 @@ Hardware: GPU (Google Colab) · Framework: PyTorch
 Función de pérdida
 :::
 
-::: {.ecuacion-destacada style="font-size:0.88rem;"}
-$$\displaystyle\mathcal{L} = \underbrace{\text{MSE}_{IC}}_{\text{condición inicial}} + \underbrace{\text{MSE}_{BC}}_{\text{fronteras}} + \underbrace{\text{MSE}_{Res}}_{\text{residuo PDE}}$$
+::: {.ecuacion-destacada}
+$$\displaystyle\mathcal{L} = \underbrace{\text{MSE}_{IC}}_{\mathrm{condici\acute{o}n\ inicial}} + \underbrace{\text{MSE}_{BC}}_{\text{fronteras}} + \underbrace{\text{MSE}_{RES}}_{\text{residuo PDE}}$$
 :::
 
 ::: {.col-label}

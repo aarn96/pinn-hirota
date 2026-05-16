@@ -13,9 +13,10 @@ $amarillo:       #F0C040;
 
 $body-color: $azul-profundo;
 $link-color: $azul-acento;
+$font-size-base: 1.1rem;
+
 
 /*-- scss:rules --*/
-
 body { font-family: 'Georgia', 'Times New Roman', serif; }
 code, pre { font-family: 'Courier New', monospace; }
 
@@ -174,8 +175,8 @@ video {
 }
 .col-label {
   font-size: 0.72rem; color: $azul-acento; font-weight: bold;
-  letter-spacing: 0.06em; text-transform: uppercase;
-  margin-bottom: 0.5rem; border-bottom: 1px solid $gris-suave; padding-bottom: 4px;
+  letter-spacing: 0.06em; margin-bottom: 0.5rem; 
+  border-bottom: 1px solid $gris-suave; padding-bottom: 4px;
 }
 
 /* ── Tablas ── */
@@ -196,3 +197,16 @@ table tr:nth-child(even) td { background: #f0f4f8; }
 .text-rojo    { color: $rojo-suave !important; }
 .text-cian    { color: $cian-claro !important; }
 .text-azul    { color: $azul-acento !important; }
+
+.dos-col li, .dos-col p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.MathJax {
+  font-family: unset !important;
+}
+
+h1, h2, h3, h4, h5, h6, th, td, li, p {
+  text-transform: none !important;
+}

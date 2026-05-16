@@ -45,7 +45,9 @@ format:
     smooth-scroll: true
     fig-align: center
     fig-cap-location: bottom
-    html-math-method: mathjax
+    html-math-method:
+      method: mathjax
+      url: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 
 execute:
   echo: false
