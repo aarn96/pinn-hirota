@@ -140,116 +140,46 @@
     "text": "Conservación de \\(\\mathcal{N}(t)\\) — diagnóstico de fidelidad física\n\\(\\mathcal{N}(t) = \\int |\\psi|^2\\,dx\\) · cantidad conservada de la familia NLS–Hirota\n\n\n\nConservación de la norma \\(\\mathcal{N}(t)\\) y error relativo \\(\\Delta\\mathcal{N}_\\text{rel}(t)\\) para los experimentos de Hirota N=2 Colisión.\n\n\n\n\n\n¿Qué miden estas curvas? CV \\(= 1.11\\times10^{-6}\\): la solución de referencia es numéricamente estable. \\(\\Delta\\mathcal{N}_\\text{rel}(t) = |\\mathcal{N}_\\text{pred} - \\mathcal{N}_\\text{exact}| / \\mathcal{N}_\\text{exact}\\) mide la desviación respecto a la cantidad conservada.\n\n\n\n\nResultado Benchmark: \\(\\max(\\Delta\\mathcal{N}_\\text{rel}) = 9.78\\times10^{-4}\\) — por debajo del umbral \\(10^{-2}\\). La PINN conserva \\(\\mathcal{N}(t)\\) sin imposición explícita, aprendiendo la estructura simétrica subyacente."
   },
   {
-    "objectID": "frontera.html",
-    "href": "frontera.html",
-    "title": "Condiciones de Frontera",
+    "objectID": "formulacion.html",
+    "href": "formulacion.html",
+    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
     "section": "",
-    "text": "Apartado 5\n  \n  \n    Los experimentos de exploración mostraron errores del orden 10⁻² en Hirota N=2 Bound\n    — significativamente mayores que en NLS. ¿Es la información de frontera la causa?\n    Pregunta:\n    ¿Cuánta información de frontera necesita la PINN para aprender correctamente?"
+    "text": "Apartado 2\n\n\n\nLa ecuación, sus parámetros, las soluciones de referencia.\nLa red neuronal, la función de pérdida y el protocolo de entrenamiento."
   },
   {
-    "objectID": "frontera.html#bc-n1",
-    "href": "frontera.html#bc-n1",
-    "title": "Condiciones de Frontera",
-    "section": "Hirota N=1 — Estudio de condiciones de frontera",
-    "text": "Hirota N=1 — Estudio de condiciones de frontera\n5 modos BC × 3 dominios · \\(\\mathcal{E}_{L_2}\\ |q|\\)\n\n\n\n\n\n\n\n\n\nModo BC\nCompleto \\([-10,10]\\)\nRecorte \\([-5,5]\\)\nRecorte \\([-2.5,2.5]\\)\n\n\n\n\nNo BC\n3.32 × 10⁻³\n1.55 × 10⁻²\n1.66 × 10⁻¹\n\n\nVal\n3.58 × 10⁻³\n1.71 × 10⁻²\n1.66 × 10⁻¹\n\n\nDer1\n3.44 × 10⁻³\n2.20 × 10⁻²\n5.42 × 10⁻¹\n\n\nVal+Der1\n3.22 × 10⁻³\n1.53 × 10⁻²\n5.35 × 10⁻¹\n\n\nVal+Der1+Der2\n3.17 × 10⁻³\n1.47 × 10⁻²\n5.36 × 10⁻¹\n\n\n\n\n\n\nDominio completo\n\nSin diferencia significativa entre modos — la dinámica está localizada en el centro del dominio. En los bordes no hay física que aprender.\n\n\n\nRecorte \\([-2.5, 2.5]\\)\n\nImponer derivadas colapsa la predicción (error ~10⁻¹). No BC y Val son los únicos modos robustos — la red penaliza restricciones inconsistentes con los datos."
-  },
-  {
-    "objectID": "frontera.html#bc-inter",
-    "href": "frontera.html#bc-inter",
-    "title": "Condiciones de Frontera",
-    "section": "Hirota N=2 Colisión — Estudio de condiciones de frontera",
-    "text": "Hirota N=2 Colisión — Estudio de condiciones de frontera\n5 modos BC × 2 dominios · \\(\\mathcal{E}_{L_2}\\ |q|\\)\n\n\n\nModo BC\nCompleto \\([-10,10]\\)\nRecorte \\([-6,6]\\)\n\n\n\n\nNo BC\n1.40 × 10⁻²\n4.34 × 10⁻²\n\n\nVal\n9.32 × 10⁻³\n5.63 × 10⁻²\n\n\nDer1\n8.61 × 10⁻³\n1.60 × 10⁻¹\n\n\nVal+Der1\n5.60 × 10⁻³\n9.89 × 10⁻²\n\n\nVal+Der1+Der2\n6.27 × 10⁻³\n9.89 × 10⁻²\n\n\n\n\n\n\nDominio completo\n\nVal+Der1 da el mejor resultado — aquí sí hay una mejora moderada con BC. La colisión ocurre lejos de los bordes y la red puede usar la información de frontera sin conflicto.\n\n\n\nRecorte \\([-6,6]\\)\n\nLa colisión queda cerca de los bordes — imponer derivadas colapsa la predicción (10⁻¹). No BC es el modo más robusto. Confirma el patrón de N=1: las derivadas son contraproducentes cuando la física aparece en los bordes."
-  },
-  {
-    "objectID": "frontera.html#bc-alcance",
-    "href": "frontera.html#bc-alcance",
-    "title": "Condiciones de Frontera",
-    "section": "Alcance del estudio de condiciones de frontera",
-    "text": "Alcance del estudio de condiciones de frontera\n5 modos BC × 3 casos × dominios completos y recortados\n\n\n\n\n\n\n\n\n\n\n\nCaso\nDominio\nMejor \\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\nPeor\nModo óptimo\nObservación\n\n\n\n\nHirota N=1\nCompleto \\([-10,10]\\)\n3.17 × 10⁻³\n3.58 × 10⁻³\nVal+Der1+Der2\nSin diferencia significativa\n\n\nHirota N=1\nRecorte \\([-5,5]\\)\n1.47 × 10⁻²\n2.20 × 10⁻²\nVal+Der1+Der2\nError sube — menos física en datos\n\n\nHirota N=1\nRecorte \\([-2.5,2.5]\\)\n1.66 × 10⁻¹\n5.42 × 10⁻¹\nNo BC / Val\nColapso con derivadas impuestas\n\n\nHirota N=2 Inter\nCompleto \\([-10,10]\\)\n5.60 × 10⁻³\n1.40 × 10⁻²\nVal+Der1\nBC mejora moderadamente\n\n\nHirota N=2 Inter\nRecorte \\([-6,6]\\)\n4.34 × 10⁻²\n1.60 × 10⁻¹\nNo BC\nDerivadas colapsan — sin física en bordes\n\n\n\n\n\n\nPatrón general\n\nEn dominio completo, el modo BC tiene poco efecto — la dinámica está localizada lejos de los bordes. Al recortar, la física del solitón aparece en los bordes y las derivadas impuestas colapsan la predicción.\n\n\n\nFoco del análisis detallado\n\nEl caso Bound concentra el hallazgo central — se presenta en detalle a continuación. N=1 e Inter se incluyen como contexto comparativo."
-  },
-  {
-    "objectID": "frontera.html#bc-bound-hallazgo",
-    "href": "frontera.html#bc-bound-hallazgo",
-    "title": "Condiciones de Frontera",
-    "section": "Hirota N=2 Bound — Hallazgo central",
-    "text": "Hirota N=2 Bound — Hallazgo central\nDominio completo \\(x\\in[-5,5]\\), \\(t\\in[0,2\\pi]\\) · \\((N_0,N_b,N_f)\\): (50,50,10 000) · Adam 5k · L-BFGS 10k\n\n\nArquitectura [4×80]\n\n\n\nModo BC\n\\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\nTiempo (min)\n\n\n\n\nNo BC\n9.91 × 10⁻³\n7.9\n\n\nVal\n1.50 × 10⁻²\n9.5\n\n\nDer1\n7.84 × 10⁻²\n10.5\n\n\nVal+Der1\n6.57 × 10⁻²\n11.8\n\n\nVal+Der1+Der2\n6.55 × 10⁻²\n12.5\n\n\n\n\n\nArquitectura [5×80]\n\n\n\nModo BC\n\\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\nTiempo (min)\n\n\n\n\nNo BC\n1.14 × 10⁻²\n10.0\n\n\nVal\n1.55 × 10⁻²\n12.4\n\n\nDer1\n6.86 × 10⁻²\n13.5\n\n\nVal+Der1\n6.53 × 10⁻²\n14.7\n\n\nVal+Der1+Der2\n6.55 × 10⁻²\n15.9\n\n\n\n\n\n\n\n\nHallazgo central\n\nSin BC es el mejor modo en ambas arquitecturas. Imponer derivadas aumenta el error un orden de magnitud (~10⁻²→10⁻¹). La red penaliza restricciones físicamente inconsistentes con los datos — en los bordes no hay dinámica del bound state.\n\n\n\n4×80 vs 5×80\n\n4×80 supera a 5×80 en todas las configuraciones con menor tiempo de entrenamiento. Una red más densa no mejora — posible sobreajuste a los datos disponibles. 4×80 es la configuración óptima para este conjunto de datos."
-  },
-  {
-    "objectID": "frontera.html#bc-convergencia",
-    "href": "frontera.html#bc-convergencia",
-    "title": "Condiciones de Frontera",
-    "section": "Convergencia y error instantáneo por modo BC",
-    "text": "Convergencia y error instantáneo por modo BC\n\n\n\n\nPérdida total por modo BC durante entrenamiento Adam + L-BFGS. No BC converge primero y más profundo en Adam. Los modos con derivadas convergen más lento en L-BFGS.\n\n\n\n\n\nError \\(\\varepsilon_{L_2}(t)\\) instantáneo. Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻².\n\n\n\n\n\n\nConvergencia\n\nNo BC converge primero y más profundo en Adam. En L-BFGS, todos los modos con derivadas convergen más lento — la red dedica capacidad a minimizar restricciones inconsistentes con los datos.\n\n\n\nError instantáneo\n\nDer1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻². El error crece porque la física impuesta en los bordes no está presente en los datos."
-  },
-  {
-    "objectID": "frontera.html#bc-residuo",
-    "href": "frontera.html#bc-residuo",
-    "title": "Condiciones de Frontera",
-    "section": "Residuo PDE por modo BC",
-    "text": "Residuo PDE por modo BC\n\\(F_\\text{mag} = \\sqrt{F_u^2 + F_v^2}\\) — incumplimiento local de la ecuación de Hirota\n\n\n\nMapa de residuo PDE para los 5 modos de condición de frontera. No BC muestra el residuo más uniformemente distribuido. Los modos con derivadas concentran residuo alto en regiones específicas — la penalización en los bordes distorsiona el aprendizaje de la física interior.\n\n\n\n\nInterpretación\n\nNo BC muestra el residuo más uniformemente distribuido — la red respeta la física en todo el dominio. Los modos con derivadas concentran residuo alto en regiones específicas, especialmente Val+Der1+Der2: la penalización en los bordes distorsiona el aprendizaje de la física interior. No es suficiente con no imponer fronteras — la física debe estar presente en los datos."
-  },
-  {
-    "objectID": "frontera.html#bc-estrias",
-    "href": "frontera.html#bc-estrias",
-    "title": "Condiciones de Frontera",
-    "section": "Estructura del error · Sin fronteras",
-    "text": "Estructura del error · Sin fronteras\nError absoluto + isolíneas \\(|q_\\text{exact}|\\) · No BC · [4×80]\n\n\n\nEstrías de error bajo coincidentes con isolíneas de baja amplitud. Las bandas de error bajo (~10⁻⁷) coinciden con regiones de gradientes suaves. El error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state.\n\n\n\n\n\nEstrías de error bajo\n\nLas bandas de error bajo (~10⁻⁷) coinciden con las isolíneas de baja amplitud — regiones de gradientes suaves donde la solución varía lentamente. Confirma el patrón observado en NLS y Hirota N=2 Colisión.\n\n\n\nError alto\n\nEl error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state — donde la dinámica es más compleja. Consistente con \\(\\rho_1 &lt; 0\\) reportado para experimentos convergidos."
-  },
-  {
-    "objectID": "frontera.html#bc-norma",
-    "href": "frontera.html#bc-norma",
-    "title": "Condiciones de Frontera",
-    "section": "Conservación de \\(\\mathcal{N}(t)\\) y flujo de frontera",
-    "text": "Conservación de \\(\\mathcal{N}(t)\\) y flujo de frontera\nCV\\(({\\mathcal{N}_\\text{exact}}) = 1.95\\times10^{-4}\\) · \\(\\max(\\Delta\\mathcal{N}_\\text{rel})\\) entre \\(4\\times10^{-3}\\) y \\(7\\times10^{-3}\\)\n\n\n\nConservación de la norma \\(\\mathcal{N}(t)\\) para el bound state. La norma no es constante — el dominio truncado genera una fuga estructurada que oscila armónicamente con la frecuencia interna del estado ligado. La PINN sigue fielmente esta dinámica.\n\n\n\n\n\nFuga de norma estructurada\n\n\\(\\mathcal{N}_\\text{exact}\\) no es constante — el dominio \\([-5,5]\\) trunca las colas del bound state y la norma “escapa” por los bordes. El flujo de frontera oscila armónicamente con la frecuencia interna del estado ligado — es física del sistema, no artefacto numérico.\n\n\n\nLa PINN aprende la dinámica presente\n\nLa red sigue fielmente la evolución de \\(\\mathcal{N}_\\text{exact}\\), incluyendo la fuga estructurada. El patrón armónico del flujo es capturado sin imposición explícita — la conservación inherente se extiende a la dinámica de frontera presente en los datos."
-  },
-  {
-    "objectID": "exploracion.html",
-    "href": "exploracion.html",
-    "title": "Exploración con Hirota",
+    "objectID": "formulacion.html#formulación-ecuación-de-hirota-y-arquitectura-pinn",
+    "href": "formulacion.html#formulación-ecuación-de-hirota-y-arquitectura-pinn",
+    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
     "section": "",
-    "text": "Apartado 4\n  \n  \n    La calibración con NLS confirmó que el método funciona. Ahora lo extendemos\n    a Hirota — una ecuación estructuralmente más compleja — y analizamos qué nos\n    dice el patrón de error sobre la física que la red aprendió.\n    Pregunta I: ¿Escala el método a una ecuación más compleja?\n    Pregunta II: ¿Qué nos dice el error sobre la física aprendida?"
+    "text": "La ecuación, sus parámetros, las soluciones de referencia.\nLa red neuronal, la función de pérdida y el protocolo de entrenamiento."
   },
   {
-    "objectID": "exploracion.html#hirota-n1",
-    "href": "exploracion.html#hirota-n1",
-    "title": "Exploración con Hirota",
-    "section": "Hirota N=1 — Reproducibilidad",
-    "text": "Hirota N=1 — Reproducibilidad\nComparación con Zhou & Yan (2021) · Solitón brillante\n\n\nConfiguración\n\nArquitectura: [2, 5×40, 2] · \\((N_0, N_b, N_f)\\): (50, 100, 10 000) · Dominio: \\(x \\in [-10,10]\\), \\(t \\in [0,5]\\)\nAdam: 5k · L-BFGS: 10k (4 647 alcanzadas) · Seed: 1234 · lr = 0.001\n\n\n\n\nMétrica\nEste trabajo\nZhou & Yan (2021)\n\n\n\n\n\\(N_0\\) / \\(N_b\\) / \\(N_f\\)\n50 / 100 / 10 000\n100 / 200 / 10 000\n\n\nAdam / L-BFGS\n5k / 10k\n10k / 10k\n\n\nSeed\n1234\nNo reportada\n\n\n\\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\n3.22 × 10⁻³\n9.32 × 10⁻³\n\n\n\\(\\mathcal{E}_{L_2}\\ u\\)\n1.86 × 10⁻²\n5.33 × 10⁻²\n\n\n\\(\\mathcal{E}_{L_2}\\ v\\)\n1.33 × 10⁻²\n3.85 × 10⁻²\n\n\nTiempo (min)\n8.23\n11.95\n\n\n\n\n\nJustificación de configuraciones base\n\nSe reproduce el resultado de Zhou & Yan con menos datos y menos épocas de Adam, mejorando en todas las métricas. Esto establece la configuración base para los experimentos de N=2."
+    "objectID": "formulacion.html#ecuación-de-hirota",
+    "href": "formulacion.html#ecuación-de-hirota",
+    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
+    "section": "Ecuación de Hirota",
+    "text": "Ecuación de Hirota\nNLSE de tercer orden — generalización con dispersión cúbica\n\n\\[i\\psi_t + 6iR_3|\\psi|^2\\psi_x + \\tfrac{1}{2}D_2\\psi_{xx} + iD_3\\psi_{xxx} + R_2|\\psi|^2\\psi = 0\\]\n\n\n\n\nParámetros usados\n\n\n\n\nParámetro\nValor\nRol\n\n\n\n\n\\(D_2\\)\n1.0\nDispersión lineal (2° orden)\n\n\n\\(D_3\\)\n0.01\nDispersión cúbica (tipo KdV)\n\n\n\\(R_2\\)\n1.0\nNo linealidad cúbica (tipo NLS)\n\n\n\\(R_3\\)\n0.01\nNo linealidad dispersiva\n\n\n\n\n\n\nJerarquía de ecuaciones\n\n\n\\(D_3, R_3 \\to 0\\): recupera NLS cúbica\nLímite apropiado: recupera mKdV\nKdV es caso límite — puente directo a ondas internas y Rossby\n\n\nSoluciones de referencia\n\n\n\\(N=1\\): solitón brillante\n\\(N=2\\): estado ligado (bound state)\n\\(N=2\\): colisión no lineal (interaction)"
   },
   {
-    "objectID": "exploracion.html#hir-n2-bound",
-    "href": "exploracion.html#hir-n2-bound",
-    "title": "Exploración con Hirota",
-    "section": "Hirota N=2 Estado ligado — Exploración de configuraciones",
-    "text": "Hirota N=2 Estado ligado — Exploración de configuraciones\n\\((N_0, N_b, N_f)\\): (50, 50, 10 000) · Adam 5k · L-BFGS 10k · Seed: 1234 · lr = 5×10⁻⁴\n\n\n\n\n\n\n\n\n\n\n\nConfiguración\n\\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\n\\(\\mathcal{E}_{L_2}\\ u\\)\n\\(\\mathcal{E}_{L_2}\\ v\\)\nIter. L-BFGS\nTiempo (min)\n\n\n\n\n\\([3\\times 40]\\)\n6.59 × 10⁻²\n5.71 × 10⁻²\n1.51 × 10⁻¹\n10 000\n9.4\n\n\n\\([4\\times 80]\\)\n6.57 × 10⁻²\n4.86 × 10⁻²\n1.36 × 10⁻¹\n7 598\n11.8\n\n\n\\([5\\times 80]\\)\n6.53 × 10⁻²\n4.93 × 10⁻²\n1.37 × 10⁻¹\n7 630\n13.9\n\n\n\n\n\nObservación\n\nLos errores son del mismo orden de magnitud en todas las configuraciones (~10⁻²–10⁻¹) — la arquitectura no explica la diferencia. Los errores son significativamente mayores que en NLS y Hirota N=1, lo que motiva una investigación más profunda en el Apartado 5 (Condiciones de Frontera).\n\n\n\nDominio\n\n\\(x \\in [-5, 5]\\), \\(t \\in [0, 2\\pi]\\)"
+    "objectID": "formulacion.html#arquitectura-pinn",
+    "href": "formulacion.html#arquitectura-pinn",
+    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
+    "section": "Arquitectura PINN",
+    "text": "Arquitectura PINN\n\n\n\nEntradas: (x, t)\nnormalizadas a [−1, 1]\n↓\nCapas ocultas × N\nactivación: Tanh\ninit: Xavier normal\n↓\nCapa de salida\nsin activación (lineal)\n↓\nSalidas: (u, v) = Re(q), Im(q)\n\n\nDerivadas vía diferenciación automática (autograd PyTorch) · Hardware: GPU (Google Colab) · Framework: PyTorch\n\n\n\n\nFunción de pérdida\n\n\n\\[\\displaystyle\\mathcal{L} = \\underbrace{\\text{MSE}_{IC}}_{\\mathrm{condici\\acute{o}n\\ inicial}} + \\underbrace{\\text{MSE}_{BC}}_{\\text{fronteras}} + \\underbrace{\\text{MSE}_{RES}}_{\\text{residuo PDE}}\\]\n\n\nProtocolo de optimización\n\n\nFase 1 — Adam: exploración global del espacio de parámetros\nFase 2 — L-BFGS (Strong Wolfe): refinamiento cuasi-Newton\nPuntos de colocación: Latin Hypercube Sampling\n\n\nSalidas guardadas por experimento\n\n\n.npz — resultados numéricos y campos\n.json — metadatos y métricas\n.pt — pesos de la red"
   },
   {
-    "objectID": "exploracion.html#hir-n2-inter-epocas",
-    "href": "exploracion.html#hir-n2-inter-epocas",
-    "title": "Exploración con Hirota",
-    "section": "Hirota N=2 Colisión — Sensibilidad a épocas",
-    "text": "Hirota N=2 Colisión — Sensibilidad a épocas\nArquitectura: [2, 5×80, 2] · \\((N_0, N_b, N_f)\\): (50, 50, 10 000) · Seed: 1234 · lr = 0.001\n\n\n\n\n\n\n\n\n\n\n\nExperimento\n\\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\n\\(\\mathcal{E}_{L_2}\\ u\\)\n\\(\\mathcal{E}_{L_2}\\ v\\)\nIter. L-BFGS\nTiempo (min)\n\n\n\n\nAdam 1k · L-BFGS 5k\n3.30 × 10⁻²\n5.17 × 10⁻²\n4.18 × 10⁻²\n5 000\n6.9\n\n\nAdam 1k · L-BFGS 20k\n5.92 × 10⁻³\n9.26 × 10⁻³\n8.43 × 10⁻³\n14 123\n17.7\n\n\nAdam 2k · L-BFGS 5k\n2.11 × 10⁻²\n4.04 × 10⁻²\n3.31 × 10⁻²\n5 000\n7.9\n\n\nAdam 5k · L-BFGS 10k\n5.60 × 10⁻³\n8.21 × 10⁻³\n6.90 × 10⁻³\n10 000\n16.8\n\n\nAdam 10k · L-BFGS 10k\n3.88 × 10⁻³\n5.99 × 10⁻³\n5.29 × 10⁻³\n9 089\n20.6\n\n\n\n\n\nBenchmark seleccionado: Adam 5k · L-BFGS 10k\n\nError del mismo orden de magnitud que Adam 10k · L-BFGS 10k (~10⁻³), con 3.8 min menos de entrenamiento. Criterio de selección: balance entre precisión y costo computacional.\n\n\n\nObservación\n\nAdam 1k · L-BFGS 20k alcanza un error similar al benchmark: L-BFGS puede compensar un Adam corto si se le dan suficientes iteraciones. Esto sugiere que la fase de exploración de Adam no es el único factor determinante: el presupuesto de refinamiento también importa."
+    "objectID": "formulacion.html#objetivo-e-hipótesis",
+    "href": "formulacion.html#objetivo-e-hipótesis",
+    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
+    "section": "Objetivo e hipótesis",
+    "text": "Objetivo e hipótesis\n\nObjetivo general Desarrollar y caracterizar PINNs para ecuaciones no lineales dispersivas relevantes en fluidos geofísicos, identificando configuraciones óptimas y limitaciones metodológicas que establezcan las bases para su futura aplicación a problemas realistas en oceanografía y dinámica atmosférica.\n\n\nHipótesis de partida Una PINN bien configurada puede aproximar soluciones de NLS e Hirota con alta precisión, seleccionando adecuadamente arquitectura, puntos de colocación y condiciones de frontera.\n\n\nLo que encontramos Las condiciones de frontera analíticas no solo son innecesarias — imponerlas cuando esa física no está representada en los datos degrada la predicción. La red solo aprende física presente en los datos de entrenamiento."
   },
   {
-    "objectID": "exploracion.html#hir-n2-inter-campos",
-    "href": "exploracion.html#hir-n2-inter-campos",
-    "title": "Exploración con Hirota",
-    "section": "Hirota N=2 Colisión — Campos y evolución temporal",
-    "text": "Hirota N=2 Colisión — Campos y evolución temporal\n\\(|q|\\) exacta · predicha · error absoluto · Adam 5k · L-BFGS 10k · Seed: 1234 · lr = 0.001\n\n\n\n\n\nCampo \\(|q(x,t)|\\): exacto, predicho por la PINN y error absoluto. El error se concentra en la zona de colisión y en los bordes. Las estrías son visibles con patrones más complejos que en NLS.\n\n\n\n  \n\n\n\n\n\nQué observar\n\nEl error se concentra en la zona de colisión y en los bordes. Las estrías son visibles con patrones más complejos que en NLS — análisis formal en la sección de Correlaciones de Spearman."
-  },
-  {
-    "objectID": "exploracion.html#spearman-inter",
-    "href": "exploracion.html#spearman-inter",
-    "title": "Exploración con Hirota",
-    "section": "Estructura del error — Correlaciones de Spearman",
-    "text": "Estructura del error — Correlaciones de Spearman\nHirota N=2 Colisión · \\(n \\sim 20\\,000\\) puntos · umbral práctico \\(|\\rho| &gt; 0.3\\)\n\n\n\n\nBarras de error \\(L_2\\) y correlaciones de Spearman por experimento. El cambio de signo en \\(\\rho_1\\) y \\(\\rho_2\\) es indicador indirecto de convergencia.\n\n\n\n\n\n\nExperimento\n\\(\\rho_1\\)\n\\(\\rho_2\\)\n\\(\\rho_4\\)†\n\n\n\n\nAdam 1k · L-BFGS 5k\n+0.010\n+0.071\n−0.073\n\n\nAdam 1k · L-BFGS 20k\n+0.016\n+0.034\n+0.003\n\n\nAdam 2k · L-BFGS 5k\n+0.331\n+0.363\n+0.156\n\n\nAdam 5k · L-BFGS 10k\n−0.427\n−0.399\n−0.196\n\n\nAdam 10k · L-BFGS 10k\n−0.359\n−0.333\n−0.090\n\n\n\n† \\(\\rho_4 &lt; 0\\) equivale a correlación positiva residuo–error (convención de código).\n\n\nρ₁, ρ₂ — Señal y convergencia\n\nExperimentos convergidos: \\(\\rho_1, \\rho_2 &lt; 0\\) — error menor donde la amplitud es mayor. El cambio de signo es indicador indirecto de convergencia.\n\n\n\n\n\nρ₄ — Diagnóstico interno\n\nEl residuo PDE predice cualitativamente el error real sin solución analítica de referencia — implicación directa para geofísica. Magnitud moderada: la interpolación fuera de los puntos de colocación introduce error no capturado por el residuo."
-  },
-  {
-    "objectID": "exploracion.html#norma-inter",
-    "href": "exploracion.html#norma-inter",
-    "title": "Exploración con Hirota",
-    "section": "Conservación de \\(\\mathcal{N}(t)\\) — diagnóstico de fidelidad física",
-    "text": "Conservación de \\(\\mathcal{N}(t)\\) — diagnóstico de fidelidad física\n\\(\\mathcal{N}(t) = \\int |\\psi|^2\\,dx\\) · cantidad conservada de la familia NLS–Hirota\n\n\n\nConservación de la norma \\(\\mathcal{N}(t)\\) y error relativo \\(\\Delta\\mathcal{N}_\\text{rel}(t)\\) para los experimentos de Hirota N=2 Colisión. CV \\(= 1.11\\times10^{-6}\\): la solución de referencia es numéricamente estable.\n\n\n\n\n\n¿Qué miden estas curvas?\n\nCV \\(= 1.11\\times10^{-6}\\): la solución de referencia es numéricamente estable. \\(\\Delta\\mathcal{N}_\\text{rel}(t) = |\\mathcal{N}_\\text{pred} - \\mathcal{N}_\\text{exact}| / \\mathcal{N}_\\text{exact}\\) mide la desviación de la predicción respecto a la cantidad conservada en cada instante.\n\n\n\nResultado\n\nBenchmark: \\(\\max(\\Delta\\mathcal{N}_\\text{rel}) = 9.78\\times10^{-4}\\) — por debajo del umbral \\(10^{-2}\\). La PINN conserva \\(\\mathcal{N}(t)\\) sin imposición explícita. \\(\\mathcal{N}(t)\\) existe en NLS y se preserva en Hirota como su generalización — la red aprende la estructura simétrica subyacente."
+    "objectID": "formulacion.html#experimentos-realizados",
+    "href": "formulacion.html#experimentos-realizados",
+    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
+    "section": "Experimentos realizados",
+    "text": "Experimentos realizados\n\n\n\n\n\n\n\n\n\nEcuación\n\\(N\\) solitones\nTipo\nExperimentos\n\n\n\n\nNLS\n1\nSolitón brillante\nSensibilidad a arquitectura, régimen de datos, gradientes\n\n\nNLS\n2\nEstado ligado\nPredicción y evaluación\n\n\nNLS\n2\nColisión no lineal\nPredicción y evaluación\n\n\nHirota\n1\nSolitón brillante\nReproducibilidad, estudio de 5 modos BC, recortes de dominio\n\n\nHirota\n2\nEstado ligado\nArquitectura × BC × conservación \\(\\mathcal{N}(t)\\)\n\n\nHirota\n2\nColisión no lineal\nÉpocas Adam × L-BFGS, BC, recortes de dominio\n\n\nHirota (3 casos)\n—\n—\nLHS vs Sobol vs Grid vs Random · Sin BC\n\n\n\n\nTotal: 61 entrenamientos · GPU (Google Colab) · PyTorch"
   },
   {
     "objectID": "calibracion.html",
@@ -308,106 +238,64 @@
     "text": "Colisión no lineal — NLS N=2\nEvolución temporal \\(|q|\\) exacta vs. predicha · error absoluto\n\n\n\n\n\nEl método es viable La PINN escala de estructuras simples (N=1) a interacciones complejas (N=2) manteniendo errores \\(L_2\\) del orden 10⁻³–10⁻². Base metodológica establecida para extender a Hirota.\n\n\n\n\nConfiguración y métricas Arquitectura: [2, 4×80, 2]\n\\((N_0, N_b, N_f)\\): (100, 100, 20 000)\nDominio: \\(x \\in [0,20]\\), \\(t \\in [0,5]\\)\nSeed: 1234 · Tiempo: 16.9 min\nIter. L-BFGS: 14 258 / 20 000\n\\(\\mathcal{E}_{L_2}\\ |q|\\): 8.21 × 10⁻³\n\\(\\mathcal{E}_{L_2}\\ u\\): 1.26 × 10⁻²\n\\(\\mathcal{E}_{L_2}\\ v\\): 1.47 × 10⁻²\n\n\nObservaciones L-BFGS usó 14 258 de 20 000 iteraciones — la colisión es más exigente que el estado ligado. El error \\(L_2\\) es consistentemente mayor, reflejando la dificultad de capturar la interacción no lineal."
   },
   {
-    "objectID": "formulacion.html",
-    "href": "formulacion.html",
-    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
-    "section": "",
-    "text": "Apartado 2\n\n\n\nLa ecuación, sus parámetros, las soluciones de referencia.\nLa red neuronal, la función de pérdida y el protocolo de entrenamiento."
-  },
-  {
-    "objectID": "formulacion.html#formulación-ecuación-de-hirota-y-arquitectura-pinn",
-    "href": "formulacion.html#formulación-ecuación-de-hirota-y-arquitectura-pinn",
-    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
-    "section": "",
-    "text": "La ecuación, sus parámetros, las soluciones de referencia.\nLa red neuronal, la función de pérdida y el protocolo de entrenamiento."
-  },
-  {
-    "objectID": "formulacion.html#ecuación-de-hirota",
-    "href": "formulacion.html#ecuación-de-hirota",
-    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
-    "section": "Ecuación de Hirota",
-    "text": "Ecuación de Hirota\nNLSE de tercer orden — generalización con dispersión cúbica\n\n\\[i\\psi_t + 6iR_3|\\psi|^2\\psi_x + \\tfrac{1}{2}D_2\\psi_{xx} + iD_3\\psi_{xxx} + R_2|\\psi|^2\\psi = 0\\]\n\n\n\n\nParámetros usados\n\n\n\n\nParámetro\nValor\nRol\n\n\n\n\n\\(D_2\\)\n1.0\nDispersión lineal (2° orden)\n\n\n\\(D_3\\)\n0.01\nDispersión cúbica (tipo KdV)\n\n\n\\(R_2\\)\n1.0\nNo linealidad cúbica (tipo NLS)\n\n\n\\(R_3\\)\n0.01\nNo linealidad dispersiva\n\n\n\n\n\n\nJerarquía de ecuaciones\n\n\n\\(D_3, R_3 \\to 0\\): recupera NLS cúbica\nLímite apropiado: recupera mKdV\nKdV es caso límite — puente directo a ondas internas y Rossby\n\n\nSoluciones de referencia\n\n\n\\(N=1\\): solitón brillante\n\\(N=2\\): estado ligado (bound state)\n\\(N=2\\): colisión no lineal (interaction)"
-  },
-  {
-    "objectID": "formulacion.html#arquitectura-pinn",
-    "href": "formulacion.html#arquitectura-pinn",
-    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
-    "section": "Arquitectura PINN",
-    "text": "Arquitectura PINN\n\n\n\nEntradas: (x, t)\nnormalizadas a [−1, 1]\n↓\nCapas ocultas × N\nactivación: Tanh\ninit: Xavier normal\n↓\nCapa de salida\nsin activación (lineal)\n↓\nSalidas: (u, v) = Re(q), Im(q)\n\n\nDerivadas vía diferenciación automática (autograd PyTorch) · Hardware: GPU (Google Colab) · Framework: PyTorch\n\n\n\n\nFunción de pérdida\n\n\n\\[\\displaystyle\\mathcal{L} = \\underbrace{\\text{MSE}_{IC}}_{\\mathrm{condici\\acute{o}n\\ inicial}} + \\underbrace{\\text{MSE}_{BC}}_{\\text{fronteras}} + \\underbrace{\\text{MSE}_{RES}}_{\\text{residuo PDE}}\\]\n\n\nProtocolo de optimización\n\n\nFase 1 — Adam: exploración global del espacio de parámetros\nFase 2 — L-BFGS (Strong Wolfe): refinamiento cuasi-Newton\nPuntos de colocación: Latin Hypercube Sampling\n\n\nSalidas guardadas por experimento\n\n\n.npz — resultados numéricos y campos\n.json — metadatos y métricas\n.pt — pesos de la red"
-  },
-  {
-    "objectID": "formulacion.html#objetivo-e-hipótesis",
-    "href": "formulacion.html#objetivo-e-hipótesis",
-    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
-    "section": "Objetivo e hipótesis",
-    "text": "Objetivo e hipótesis\n\nObjetivo general Desarrollar y caracterizar PINNs para ecuaciones no lineales dispersivas relevantes en fluidos geofísicos, identificando configuraciones óptimas y limitaciones metodológicas que establezcan las bases para su futura aplicación a problemas realistas en oceanografía y dinámica atmosférica.\n\n\nHipótesis de partida Una PINN bien configurada puede aproximar soluciones de NLS e Hirota con alta precisión, seleccionando adecuadamente arquitectura, puntos de colocación y condiciones de frontera.\n\n\nLo que encontramos Las condiciones de frontera analíticas no solo son innecesarias — imponerlas cuando esa física no está representada en los datos degrada la predicción. La red solo aprende física presente en los datos de entrenamiento."
-  },
-  {
-    "objectID": "formulacion.html#experimentos-realizados",
-    "href": "formulacion.html#experimentos-realizados",
-    "title": "Formulación: Ecuación de Hirota y Arquitectura PINN",
-    "section": "Experimentos realizados",
-    "text": "Experimentos realizados\n\n\n\n\n\n\n\n\n\nEcuación\n\\(N\\) solitones\nTipo\nExperimentos\n\n\n\n\nNLS\n1\nSolitón brillante\nSensibilidad a arquitectura, régimen de datos, gradientes\n\n\nNLS\n2\nEstado ligado\nPredicción y evaluación\n\n\nNLS\n2\nColisión no lineal\nPredicción y evaluación\n\n\nHirota\n1\nSolitón brillante\nReproducibilidad, estudio de 5 modos BC, recortes de dominio\n\n\nHirota\n2\nEstado ligado\nArquitectura × BC × conservación \\(\\mathcal{N}(t)\\)\n\n\nHirota\n2\nColisión no lineal\nÉpocas Adam × L-BFGS, BC, recortes de dominio\n\n\nHirota (3 casos)\n—\n—\nLHS vs Sobol vs Grid vs Random · Sin BC\n\n\n\n\nTotal: 61 entrenamientos · GPU (Google Colab) · PyTorch"
-  },
-  {
-    "objectID": "fronteras.html",
-    "href": "fronteras.html",
+    "objectID": "frontera.html",
+    "href": "frontera.html",
     "title": "Condiciones de Frontera",
     "section": "",
     "text": "Apartado 5\n  \n  \n    Los experimentos de exploración mostraron errores del orden 10⁻² en Hirota N=2 Bound\n    — significativamente mayores que en NLS. ¿Es la información de frontera la causa?\n    Pregunta:\n    ¿Cuánta información de frontera necesita la PINN para aprender correctamente?"
   },
   {
-    "objectID": "fronteras.html#bc-n1",
-    "href": "fronteras.html#bc-n1",
+    "objectID": "frontera.html#bc-n1",
+    "href": "frontera.html#bc-n1",
     "title": "Condiciones de Frontera",
     "section": "Hirota N=1 — Estudio de condiciones de frontera",
     "text": "Hirota N=1 — Estudio de condiciones de frontera\n5 modos BC × 3 dominios · \\(\\mathcal{E}_{L_2}\\ |q|\\)\n\n\n\n\n\n\n\n\n\nModo BC\nCompleto \\([-10,10]\\)\nRecorte \\([-5,5]\\)\nRecorte \\([-2.5,2.5]\\)\n\n\n\n\nNo BC\n3.32 × 10⁻³\n1.55 × 10⁻²\n1.66 × 10⁻¹\n\n\nVal\n3.58 × 10⁻³\n1.71 × 10⁻²\n1.66 × 10⁻¹\n\n\nDer1\n3.44 × 10⁻³\n2.20 × 10⁻²\n5.42 × 10⁻¹\n\n\nVal+Der1\n3.22 × 10⁻³\n1.53 × 10⁻²\n5.35 × 10⁻¹\n\n\nVal+Der1+Der2\n3.17 × 10⁻³\n1.47 × 10⁻²\n5.36 × 10⁻¹\n\n\n\n\n\n\nDominio completo\n\nSin diferencia significativa entre modos — la dinámica está localizada en el centro del dominio. En los bordes no hay física que aprender.\n\n\n\nRecorte \\([-2.5, 2.5]\\)\n\nImponer derivadas colapsa la predicción (error ~10⁻¹). No BC y Val son los únicos modos robustos — la red penaliza restricciones inconsistentes con los datos."
   },
   {
-    "objectID": "fronteras.html#bc-inter",
-    "href": "fronteras.html#bc-inter",
+    "objectID": "frontera.html#bc-inter",
+    "href": "frontera.html#bc-inter",
     "title": "Condiciones de Frontera",
     "section": "Hirota N=2 Colisión — Estudio de condiciones de frontera",
     "text": "Hirota N=2 Colisión — Estudio de condiciones de frontera\n5 modos BC × 2 dominios · \\(\\mathcal{E}_{L_2}\\ |q|\\)\n\n\n\nModo BC\nCompleto \\([-10,10]\\)\nRecorte \\([-6,6]\\)\n\n\n\n\nNo BC\n1.40 × 10⁻²\n4.34 × 10⁻²\n\n\nVal\n9.32 × 10⁻³\n5.63 × 10⁻²\n\n\nDer1\n8.61 × 10⁻³\n1.60 × 10⁻¹\n\n\nVal+Der1\n5.60 × 10⁻³\n9.89 × 10⁻²\n\n\nVal+Der1+Der2\n6.27 × 10⁻³\n9.89 × 10⁻²\n\n\n\n\n\n\nDominio completo\n\nVal+Der1 da el mejor resultado — aquí sí hay una mejora moderada con BC. La colisión ocurre lejos de los bordes y la red puede usar la información de frontera sin conflicto.\n\n\n\nRecorte \\([-6,6]\\)\n\nLa colisión queda cerca de los bordes — imponer derivadas colapsa la predicción (10⁻¹). No BC es el modo más robusto. Confirma el patrón de N=1: las derivadas son contraproducentes cuando la física aparece en los bordes."
   },
   {
-    "objectID": "fronteras.html#bc-alcance",
-    "href": "fronteras.html#bc-alcance",
+    "objectID": "frontera.html#bc-alcance",
+    "href": "frontera.html#bc-alcance",
     "title": "Condiciones de Frontera",
     "section": "Alcance del estudio de condiciones de frontera",
     "text": "Alcance del estudio de condiciones de frontera\n5 modos BC × 3 casos × dominios completos y recortados\n\n\n\n\n\n\n\n\n\n\n\nCaso\nDominio\nMejor \\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\nPeor\nModo óptimo\nObservación\n\n\n\n\nHirota N=1\nCompleto \\([-10,10]\\)\n3.17 × 10⁻³\n3.58 × 10⁻³\nVal+Der1+Der2\nSin diferencia significativa\n\n\nHirota N=1\nRecorte \\([-5,5]\\)\n1.47 × 10⁻²\n2.20 × 10⁻²\nVal+Der1+Der2\nError sube — menos física en datos\n\n\nHirota N=1\nRecorte \\([-2.5,2.5]\\)\n1.66 × 10⁻¹\n5.42 × 10⁻¹\nNo BC / Val\nColapso con derivadas impuestas\n\n\nHirota N=2 Inter\nCompleto \\([-10,10]\\)\n5.60 × 10⁻³\n1.40 × 10⁻²\nVal+Der1\nBC mejora moderadamente\n\n\nHirota N=2 Inter\nRecorte \\([-6,6]\\)\n4.34 × 10⁻²\n1.60 × 10⁻¹\nNo BC\nDerivadas colapsan — sin física en bordes\n\n\n\n\n\n\nPatrón general\n\nEn dominio completo, el modo BC tiene poco efecto — la dinámica está localizada lejos de los bordes. Al recortar, la física del solitón aparece en los bordes y las derivadas impuestas colapsan la predicción.\n\n\n\nFoco del análisis detallado\n\nEl caso Bound concentra el hallazgo central — se presenta en detalle a continuación. N=1 e Inter se incluyen como contexto comparativo."
   },
   {
-    "objectID": "fronteras.html#bc-bound-hallazgo",
-    "href": "fronteras.html#bc-bound-hallazgo",
+    "objectID": "frontera.html#bc-bound-hallazgo",
+    "href": "frontera.html#bc-bound-hallazgo",
     "title": "Condiciones de Frontera",
     "section": "Hirota N=2 Bound — Hallazgo central",
     "text": "Hirota N=2 Bound — Hallazgo central\nDominio completo \\(x\\in[-5,5]\\), \\(t\\in[0,2\\pi]\\) · \\((N_0,N_b,N_f)\\): (50,50,10 000) · Adam 5k · L-BFGS 10k\n\n\nArquitectura [4×80]\n\n\n\nModo BC\n\\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\nTiempo (min)\n\n\n\n\nNo BC\n9.91 × 10⁻³\n7.9\n\n\nVal\n1.50 × 10⁻²\n9.5\n\n\nDer1\n7.84 × 10⁻²\n10.5\n\n\nVal+Der1\n6.57 × 10⁻²\n11.8\n\n\nVal+Der1+Der2\n6.55 × 10⁻²\n12.5\n\n\n\n\n\nArquitectura [5×80]\n\n\n\nModo BC\n\\(\\mathcal{E}_{L_2}\\ \\|q\\|\\)\nTiempo (min)\n\n\n\n\nNo BC\n1.14 × 10⁻²\n10.0\n\n\nVal\n1.55 × 10⁻²\n12.4\n\n\nDer1\n6.86 × 10⁻²\n13.5\n\n\nVal+Der1\n6.53 × 10⁻²\n14.7\n\n\nVal+Der1+Der2\n6.55 × 10⁻²\n15.9\n\n\n\n\n\n\n\n\nHallazgo central\n\nSin BC es el mejor modo en ambas arquitecturas. Imponer derivadas aumenta el error un orden de magnitud (~10⁻²→10⁻¹). La red penaliza restricciones físicamente inconsistentes con los datos — en los bordes no hay dinámica del bound state.\n\n\n\n4×80 vs 5×80\n\n4×80 supera a 5×80 en todas las configuraciones con menor tiempo de entrenamiento. Una red más densa no mejora — posible sobreajuste a los datos disponibles. 4×80 es la configuración óptima para este conjunto de datos."
   },
   {
-    "objectID": "fronteras.html#bc-convergencia",
-    "href": "fronteras.html#bc-convergencia",
+    "objectID": "frontera.html#bc-convergencia",
+    "href": "frontera.html#bc-convergencia",
     "title": "Condiciones de Frontera",
     "section": "Convergencia y error instantáneo por modo BC",
     "text": "Convergencia y error instantáneo por modo BC\n\n\n\n\nPérdida total por modo BC durante entrenamiento Adam + L-BFGS. No BC converge primero y más profundo en Adam. Los modos con derivadas convergen más lento en L-BFGS.\n\n\n\n\n\nError \\(\\varepsilon_{L_2}(t)\\) instantáneo. Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻².\n\n\n\n\n\n\nConvergencia\n\nNo BC converge primero y más profundo en Adam. En L-BFGS, todos los modos con derivadas convergen más lento — la red dedica capacidad a minimizar restricciones inconsistentes con los datos.\n\n\n\nError instantáneo\n\nDer1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻². El error crece porque la física impuesta en los bordes no está presente en los datos."
   },
   {
-    "objectID": "fronteras.html#bc-residuo",
-    "href": "fronteras.html#bc-residuo",
+    "objectID": "frontera.html#bc-residuo",
+    "href": "frontera.html#bc-residuo",
     "title": "Condiciones de Frontera",
     "section": "Residuo PDE por modo BC",
     "text": "Residuo PDE por modo BC\n\\(F_\\text{mag} = \\sqrt{F_u^2 + F_v^2}\\) — incumplimiento local de la ecuación de Hirota\n\n\n\nMapa de residuo PDE para los 5 modos de condición de frontera. No BC muestra el residuo más uniformemente distribuido. Los modos con derivadas concentran residuo alto en regiones específicas — la penalización en los bordes distorsiona el aprendizaje de la física interior.\n\n\n\n\nInterpretación\n\nNo BC muestra el residuo más uniformemente distribuido — la red respeta la física en todo el dominio. Los modos con derivadas concentran residuo alto en regiones específicas, especialmente Val+Der1+Der2: la penalización en los bordes distorsiona el aprendizaje de la física interior. No es suficiente con no imponer fronteras — la física debe estar presente en los datos."
   },
   {
-    "objectID": "fronteras.html#bc-estrias",
-    "href": "fronteras.html#bc-estrias",
+    "objectID": "frontera.html#bc-estrias",
+    "href": "frontera.html#bc-estrias",
     "title": "Condiciones de Frontera",
     "section": "Estructura del error · Sin fronteras",
     "text": "Estructura del error · Sin fronteras\nError absoluto + isolíneas \\(|q_\\text{exact}|\\) · No BC · [4×80]\n\n\n\nEstrías de error bajo coincidentes con isolíneas de baja amplitud. Las bandas de error bajo (~10⁻⁷) coinciden con regiones de gradientes suaves. El error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state.\n\n\n\n\n\nEstrías de error bajo\n\nLas bandas de error bajo (~10⁻⁷) coinciden con las isolíneas de baja amplitud — regiones de gradientes suaves donde la solución varía lentamente. Confirma el patrón observado en NLS y Hirota N=2 Colisión.\n\n\n\nError alto\n\nEl error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state — donde la dinámica es más compleja. Consistente con \\(\\rho_1 &lt; 0\\) reportado para experimentos convergidos."
   },
   {
-    "objectID": "fronteras.html#bc-norma",
-    "href": "fronteras.html#bc-norma",
+    "objectID": "frontera.html#bc-norma",
+    "href": "frontera.html#bc-norma",
     "title": "Condiciones de Frontera",
     "section": "Conservación de \\(\\mathcal{N}(t)\\) y flujo de frontera",
     "text": "Conservación de \\(\\mathcal{N}(t)\\) y flujo de frontera\nCV\\(({\\mathcal{N}_\\text{exact}}) = 1.95\\times10^{-4}\\) · \\(\\max(\\Delta\\mathcal{N}_\\text{rel})\\) entre \\(4\\times10^{-3}\\) y \\(7\\times10^{-3}\\)\n\n\n\nConservación de la norma \\(\\mathcal{N}(t)\\) para el bound state. La norma no es constante — el dominio truncado genera una fuga estructurada que oscila armónicamente con la frecuencia interna del estado ligado. La PINN sigue fielmente esta dinámica.\n\n\n\n\n\nFuga de norma estructurada\n\n\\(\\mathcal{N}_\\text{exact}\\) no es constante — el dominio \\([-5,5]\\) trunca las colas del bound state y la norma “escapa” por los bordes. El flujo de frontera oscila armónicamente con la frecuencia interna del estado ligado — es física del sistema, no artefacto numérico.\n\n\n\nLa PINN aprende la dinámica presente\n\nLa red sigue fielmente la evolución de \\(\\mathcal{N}_\\text{exact}\\), incluyendo la fuga estructurada. El patrón armónico del flujo es capturado sin imposición explícita — la conservación inherente se extiende a la dinámica de frontera presente en los datos."
