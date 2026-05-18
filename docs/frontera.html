@@ -175,14 +175,14 @@ window.Quarto = {
     <h2 id="toc-title">Contenido</h2>
    
   <ul>
-  <li><a href="#bc-n1" id="toc-bc-n1" class="nav-link active" data-scroll-target="#bc-n1">Hirota N=1 — Estudio de condiciones de frontera</a></li>
-  <li><a href="#bc-inter" id="toc-bc-inter" class="nav-link" data-scroll-target="#bc-inter">Hirota N=2 Colisión — Estudio de condiciones de frontera</a></li>
-  <li><a href="#bc-alcance" id="toc-bc-alcance" class="nav-link" data-scroll-target="#bc-alcance">Alcance del estudio de condiciones de frontera</a></li>
-  <li><a href="#bc-bound-hallazgo" id="toc-bc-bound-hallazgo" class="nav-link" data-scroll-target="#bc-bound-hallazgo">Hirota N=2 Bound — Hallazgo central</a></li>
-  <li><a href="#bc-convergencia" id="toc-bc-convergencia" class="nav-link" data-scroll-target="#bc-convergencia">Convergencia y error instantáneo por modo BC</a></li>
-  <li><a href="#bc-residuo" id="toc-bc-residuo" class="nav-link" data-scroll-target="#bc-residuo">Residuo PDE por modo BC</a></li>
-  <li><a href="#bc-estrias" id="toc-bc-estrias" class="nav-link" data-scroll-target="#bc-estrias">Estructura del error · Sin fronteras</a></li>
-  <li><a href="#bc-norma" id="toc-bc-norma" class="nav-link" data-scroll-target="#bc-norma">Conservación de <span class="math inline">\(\mathcal{N}(t)\)</span> y flujo de frontera</a></li>
+  <li><a href="#hirota-n1-estudio-de-condiciones-de-frontera" id="toc-hirota-n1-estudio-de-condiciones-de-frontera" class="nav-link active" data-scroll-target="#hirota-n1-estudio-de-condiciones-de-frontera">Hirota N=1 — Estudio de condiciones de frontera</a></li>
+  <li><a href="#hirota-n2-colisión-estudio-de-condiciones-de-frontera" id="toc-hirota-n2-colisión-estudio-de-condiciones-de-frontera" class="nav-link" data-scroll-target="#hirota-n2-colisión-estudio-de-condiciones-de-frontera">Hirota N=2 Colisión — Estudio de condiciones de frontera</a></li>
+  <li><a href="#alcance-del-estudio-de-condiciones-de-frontera" id="toc-alcance-del-estudio-de-condiciones-de-frontera" class="nav-link" data-scroll-target="#alcance-del-estudio-de-condiciones-de-frontera">Alcance del estudio de condiciones de frontera</a></li>
+  <li><a href="#hirota-n2-bound-hallazgo-central" id="toc-hirota-n2-bound-hallazgo-central" class="nav-link" data-scroll-target="#hirota-n2-bound-hallazgo-central">Hirota N=2 Bound — Hallazgo central</a></li>
+  <li><a href="#convergencia-y-error-instantáneo-por-modo-bc" id="toc-convergencia-y-error-instantáneo-por-modo-bc" class="nav-link" data-scroll-target="#convergencia-y-error-instantáneo-por-modo-bc">Convergencia y error instantáneo por modo BC</a></li>
+  <li><a href="#residuo-pde-por-modo-bc" id="toc-residuo-pde-por-modo-bc" class="nav-link" data-scroll-target="#residuo-pde-por-modo-bc">Residuo PDE por modo BC</a></li>
+  <li><a href="#estructura-del-error-sin-fronteras" id="toc-estructura-del-error-sin-fronteras" class="nav-link" data-scroll-target="#estructura-del-error-sin-fronteras">Estructura del error · Sin fronteras</a></li>
+  <li><a href="#conservación-de-mathcalnt-y-flujo-de-frontera" id="toc-conservación-de-mathcalnt-y-flujo-de-frontera" class="nav-link" data-scroll-target="#conservación-de-mathcalnt-y-flujo-de-frontera">Conservación de <span class="math inline">\(\mathcal{N}(t)\)</span> y flujo de frontera</a></li>
   </ul>
 </nav>
     </div>
@@ -192,7 +192,6 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Condiciones de Frontera</h1>
-<p class="subtitle lead">¿Cuánta información de frontera necesita la PINN?</p>
 </div>
 
 
@@ -209,413 +208,399 @@ window.Quarto = {
 </header>
 
 
-<div class="separador-apartado">
-  <div class="apartado-num">Apartado 5</div>
-  <h2 class="anchored">Condiciones de Frontera</h2>
-  <div class="descripcion">
-    Los experimentos de exploración mostraron errores del orden 10⁻² en Hirota N=2 Bound
-    — significativamente mayores que en NLS. ¿Es la información de frontera la causa?<br><br>
-    <strong style="color:#56CFE1;">Pregunta:</strong>
-    ¿Cuánta información de frontera necesita la PINN para aprender correctamente?
-  </div>
+<div class="apartado-banner">
+<p><span class="apartado-num">Apartado 5</span></p>
+<section id="condiciones-de-frontera" class="level2">
+<h2 class="anchored" data-anchor-id="condiciones-de-frontera">Condiciones de Frontera</h2>
+<div class="descripcion">
+<p>Los experimentos de exploración mostraron errores del orden 10⁻² en Hirota N=2 Bound — significativamente mayores que en NLS. ¿Es la información de frontera la causa?</p>
+<p><strong>Pregunta a responder:</strong> ¿Cuánta información de frontera necesita la PINN para aprender correctamente?</p>
 </div>
-<section id="bc-n1" class="level2">
-<h2 class="anchored" data-anchor-id="bc-n1">Hirota N=1 — Estudio de condiciones de frontera</h2>
-<p><em>5 modos BC × 3 dominios · <span class="math inline">\(\mathcal{E}_{L_2}\ |q|\)</span></em></p>
+</section>
+</div>
+<hr>
+<section id="hirota-n1-estudio-de-condiciones-de-frontera" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="hirota-n1-estudio-de-condiciones-de-frontera">Hirota N=1 — Estudio de condiciones de frontera</h2>
+<p><span class="slide-subtitulo">5 modos BC × 3 dominios · <span class="math inline">\(\mathcal{E}_{L_2}\ |q|\)</span></span></p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 12%">
-<col style="width: 30%">
 <col style="width: 25%">
-<col style="width: 31%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Modo BC</th>
-<th style="text-align: center;">Completo <span class="math inline">\([-10,10]\)</span></th>
-<th style="text-align: center;">Recorte <span class="math inline">\([-5,5]\)</span></th>
-<th style="text-align: center;">Recorte <span class="math inline">\([-2.5,2.5]\)</span></th>
+<th>Modo BC</th>
+<th>Completo <span class="math inline">\([-10,10]\)</span></th>
+<th>Recorte <span class="math inline">\([-5,5]\)</span></th>
+<th>Recorte <span class="math inline">\([-2.5,2.5]\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">No BC</td>
-<td style="text-align: center;">3.32 × 10⁻³</td>
-<td style="text-align: center;">1.55 × 10⁻²</td>
-<td style="text-align: center;">1.66 × 10⁻¹</td>
+<td>No BC</td>
+<td>3.32 × 10⁻³</td>
+<td>1.55 × 10⁻²</td>
+<td>1.66 × 10⁻¹</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val</td>
-<td style="text-align: center;">3.58 × 10⁻³</td>
-<td style="text-align: center;">1.71 × 10⁻²</td>
-<td style="text-align: center;">1.66 × 10⁻¹</td>
+<td>Val</td>
+<td>3.58 × 10⁻³</td>
+<td>1.71 × 10⁻²</td>
+<td>1.66 × 10⁻¹</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Der1</td>
-<td style="text-align: center;">3.44 × 10⁻³</td>
-<td style="text-align: center;">2.20 × 10⁻²</td>
-<td style="text-align: center;"><strong>5.42 × 10⁻¹</strong></td>
+<td>Der1</td>
+<td>3.44 × 10⁻³</td>
+<td>2.20 × 10⁻²</td>
+<td><span class="peor">5.42 × 10⁻¹</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val+Der1</td>
-<td style="text-align: center;">3.22 × 10⁻³</td>
-<td style="text-align: center;">1.53 × 10⁻²</td>
-<td style="text-align: center;"><strong>5.35 × 10⁻¹</strong></td>
+<td>Val+Der1</td>
+<td>3.22 × 10⁻³</td>
+<td>1.53 × 10⁻²</td>
+<td><span class="peor">5.35 × 10⁻¹</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Val+Der1+Der2</td>
-<td style="text-align: center;">3.17 × 10⁻³</td>
-<td style="text-align: center;">1.47 × 10⁻²</td>
-<td style="text-align: center;"><strong>5.36 × 10⁻¹</strong></td>
+<td>Val+Der1+Der2</td>
+<td>3.17 × 10⁻³</td>
+<td>1.47 × 10⁻²</td>
+<td><span class="peor">5.36 × 10⁻¹</span></td>
 </tr>
 </tbody>
 </table>
-<div class="dos-tarjetas">
+<div class="dos-col">
+<div>
 <div class="caja-hipotesis">
-<div class="etiqueta">
-Dominio completo
+<p><span class="etiqueta">Dominio completo</span> Sin diferencia significativa entre modos — la dinámica está localizada en el centro del dominio. En los bordes no hay física que aprender.</p>
 </div>
-<p>Sin diferencia significativa entre modos — la dinámica está localizada en el centro del dominio. En los bordes no hay física que aprender.</p>
 </div>
+<div>
 <div class="caja-hallazgo">
-<div class="etiqueta">
-Recorte <span class="math inline">\([-2.5, 2.5]\)</span>
+<p><span class="etiqueta">Recorte <span class="math inline">\([-2.5, 2.5]\)</span></span> Imponer derivadas colapsa la predicción (error ~10⁻¹). No BC y Val son los únicos modos robustos — la red penaliza restricciones inconsistentes con los datos.</p>
 </div>
-<p>Imponer derivadas colapsa la predicción (error ~10⁻¹). No BC y Val son los únicos modos robustos — la red penaliza restricciones inconsistentes con los datos.</p>
 </div>
 </div>
 <hr>
 </section>
-<section id="bc-inter" class="level2">
-<h2 class="anchored" data-anchor-id="bc-inter">Hirota N=2 Colisión — Estudio de condiciones de frontera</h2>
-<p><em>5 modos BC × 2 dominios · <span class="math inline">\(\mathcal{E}_{L_2}\ |q|\)</span></em></p>
+<section id="hirota-n2-colisión-estudio-de-condiciones-de-frontera" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="hirota-n2-colisión-estudio-de-condiciones-de-frontera">Hirota N=2 Colisión — Estudio de condiciones de frontera</h2>
+<p><span class="slide-subtitulo">5 modos BC × 2 dominios · <span class="math inline">\(\mathcal{E}_{L_2}\ |q|\)</span></span></p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Modo BC</th>
-<th style="text-align: center;">Completo <span class="math inline">\([-10,10]\)</span></th>
-<th style="text-align: center;">Recorte <span class="math inline">\([-6,6]\)</span></th>
+<th>Modo BC</th>
+<th>Completo <span class="math inline">\([-10,10]\)</span></th>
+<th>Recorte <span class="math inline">\([-6,6]\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">No BC</td>
-<td style="text-align: center;">1.40 × 10⁻²</td>
-<td style="text-align: center;">4.34 × 10⁻²</td>
+<td>No BC</td>
+<td>1.40 × 10⁻²</td>
+<td>4.34 × 10⁻²</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val</td>
-<td style="text-align: center;">9.32 × 10⁻³</td>
-<td style="text-align: center;">5.63 × 10⁻²</td>
+<td>Val</td>
+<td>9.32 × 10⁻³</td>
+<td>5.63 × 10⁻²</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Der1</td>
-<td style="text-align: center;">8.61 × 10⁻³</td>
-<td style="text-align: center;"><strong>1.60 × 10⁻¹</strong></td>
+<td>Der1</td>
+<td>8.61 × 10⁻³</td>
+<td><span class="peor">1.60 × 10⁻¹</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val+Der1</td>
-<td style="text-align: center;"><strong>5.60 × 10⁻³</strong></td>
-<td style="text-align: center;"><strong>9.89 × 10⁻²</strong></td>
+<td>Val+Der1</td>
+<td><span class="mejor">5.60 × 10⁻³</span></td>
+<td><span class="peor">9.89 × 10⁻²</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Val+Der1+Der2</td>
-<td style="text-align: center;">6.27 × 10⁻³</td>
-<td style="text-align: center;"><strong>9.89 × 10⁻²</strong></td>
+<td>Val+Der1+Der2</td>
+<td>6.27 × 10⁻³</td>
+<td><span class="peor">9.89 × 10⁻²</span></td>
 </tr>
 </tbody>
 </table>
-<div class="dos-tarjetas">
+<div class="dos-col">
+<div>
 <div class="caja-hipotesis">
-<div class="etiqueta">
-Dominio completo
+<p><span class="etiqueta">Dominio completo</span> Val+Der1 da el mejor resultado — aquí sí hay una mejora moderada con BC. La colisión ocurre lejos de los bordes y la red puede usar la información de frontera sin conflicto.</p>
 </div>
-<p>Val+Der1 da el mejor resultado — aquí sí hay una mejora moderada con BC. La colisión ocurre lejos de los bordes y la red puede usar la información de frontera sin conflicto.</p>
 </div>
+<div>
 <div class="caja-hallazgo">
-<div class="etiqueta">
-Recorte <span class="math inline">\([-6,6]\)</span>
+<p><span class="etiqueta">Recorte <span class="math inline">\([-6,6]\)</span></span> La colisión queda cerca de los bordes — imponer derivadas colapsa la predicción (10⁻¹). No BC es el modo más robusto. Confirma el patrón de N=1: las derivadas son contraproducentes cuando la física aparece en los bordes.</p>
 </div>
-<p>La colisión queda cerca de los bordes — imponer derivadas colapsa la predicción (10⁻¹). No BC es el modo más robusto. Confirma el patrón de N=1: las derivadas son contraproducentes cuando la física aparece en los bordes.</p>
 </div>
 </div>
 <hr>
 </section>
-<section id="bc-alcance" class="level2">
-<h2 class="anchored" data-anchor-id="bc-alcance">Alcance del estudio de condiciones de frontera</h2>
-<p><em>5 modos BC × 3 casos × dominios completos y recortados</em></p>
+<section id="alcance-del-estudio-de-condiciones-de-frontera" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="alcance-del-estudio-de-condiciones-de-frontera">Alcance del estudio de condiciones de frontera</h2>
+<p><span class="slide-subtitulo">5 modos BC × 3 casos × dominios completos y recortados</span></p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 13%">
-<col style="width: 20%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 11%">
-<col style="width: 30%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Caso</th>
-<th style="text-align: left;">Dominio</th>
-<th style="text-align: center;">Mejor <span class="math inline">\(\mathcal{E}_{L_2}\ \|q\|\)</span></th>
-<th style="text-align: center;">Peor</th>
-<th style="text-align: center;">Modo óptimo</th>
-<th style="text-align: left;">Observación</th>
+<th>Caso</th>
+<th>Dominio</th>
+<th>Mejor <span class="math inline">\(\mathcal{E}_{L_2}\ \|q\|\)</span></th>
+<th>Peor</th>
+<th>Modo óptimo</th>
+<th>Observación</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Hirota N=1</td>
-<td style="text-align: left;">Completo <span class="math inline">\([-10,10]\)</span></td>
-<td style="text-align: center;">3.17 × 10⁻³</td>
-<td style="text-align: center;">3.58 × 10⁻³</td>
-<td style="text-align: center;">Val+Der1+Der2</td>
-<td style="text-align: left;">Sin diferencia significativa</td>
+<td>Hirota N=1</td>
+<td>Completo <span class="math inline">\([-10,10]\)</span></td>
+<td>3.17 × 10⁻³</td>
+<td>3.58 × 10⁻³</td>
+<td>Val+Der1+Der2</td>
+<td>Sin diferencia significativa</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Hirota N=1</td>
-<td style="text-align: left;">Recorte <span class="math inline">\([-5,5]\)</span></td>
-<td style="text-align: center;">1.47 × 10⁻²</td>
-<td style="text-align: center;">2.20 × 10⁻²</td>
-<td style="text-align: center;">Val+Der1+Der2</td>
-<td style="text-align: left;">Error sube — menos física en datos</td>
+<td>Hirota N=1</td>
+<td>Recorte <span class="math inline">\([-5,5]\)</span></td>
+<td>1.47 × 10⁻²</td>
+<td>2.20 × 10⁻²</td>
+<td>Val+Der1+Der2</td>
+<td>Error sube — menos física en datos</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Hirota N=1</td>
-<td style="text-align: left;">Recorte <span class="math inline">\([-2.5,2.5]\)</span></td>
-<td style="text-align: center;">1.66 × 10⁻¹</td>
-<td style="text-align: center;">5.42 × 10⁻¹</td>
-<td style="text-align: center;">No BC / Val</td>
-<td style="text-align: left;">Colapso con derivadas impuestas</td>
+<td>Hirota N=1</td>
+<td>Recorte <span class="math inline">\([-2.5,2.5]\)</span></td>
+<td><span class="peor">1.66 × 10⁻¹</span></td>
+<td><span class="peor">5.42 × 10⁻¹</span></td>
+<td>No BC / Val</td>
+<td>Colapso con derivadas impuestas</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Hirota N=2 Inter</td>
-<td style="text-align: left;">Completo <span class="math inline">\([-10,10]\)</span></td>
-<td style="text-align: center;">5.60 × 10⁻³</td>
-<td style="text-align: center;">1.40 × 10⁻²</td>
-<td style="text-align: center;">Val+Der1</td>
-<td style="text-align: left;">BC mejora moderadamente</td>
+<td>Hirota N=2 Inter</td>
+<td>Completo <span class="math inline">\([-10,10]\)</span></td>
+<td>5.60 × 10⁻³</td>
+<td>1.40 × 10⁻²</td>
+<td>Val+Der1</td>
+<td>BC mejora moderadamente</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Hirota N=2 Inter</td>
-<td style="text-align: left;">Recorte <span class="math inline">\([-6,6]\)</span></td>
-<td style="text-align: center;">4.34 × 10⁻²</td>
-<td style="text-align: center;">1.60 × 10⁻¹</td>
-<td style="text-align: center;">No BC</td>
-<td style="text-align: left;">Derivadas colapsan — sin física en bordes</td>
+<td>Hirota N=2 Inter</td>
+<td>Recorte <span class="math inline">\([-6,6]\)</span></td>
+<td><span style="color:#E8871A;">4.34 × 10⁻²</span></td>
+<td><span class="peor">1.60 × 10⁻¹</span></td>
+<td>No BC</td>
+<td>Derivadas colapsan — sin física en bordes</td>
 </tr>
 </tbody>
 </table>
-<div class="dos-tarjetas">
+<div class="dos-col">
+<div>
 <div class="caja-hipotesis">
-<div class="etiqueta">
-Patrón general
+<p><span class="etiqueta">Patrón general</span> En dominio completo, el modo BC tiene poco efecto — la dinámica está localizada lejos de los bordes. Al recortar, la física del solitón aparece en los bordes y las derivadas impuestas colapsan la predicción.</p>
 </div>
-<p>En dominio completo, el modo BC tiene poco efecto — la dinámica está localizada lejos de los bordes. Al recortar, la física del solitón aparece en los bordes y las derivadas impuestas colapsan la predicción.</p>
 </div>
+<div>
 <div class="caja-hallazgo">
-<div class="etiqueta">
-Foco del análisis detallado
+<p><span class="etiqueta">Foco del análisis detallado</span> El caso Bound concentra el hallazgo central — se presenta en detalle a continuación. N=1 e Inter se incluyen como contexto comparativo.</p>
 </div>
-<p>El caso Bound concentra el hallazgo central — se presenta en detalle a continuación. N=1 e Inter se incluyen como contexto comparativo.</p>
 </div>
 </div>
 <hr>
 </section>
-<section id="bc-bound-hallazgo" class="level2">
-<h2 class="anchored" data-anchor-id="bc-bound-hallazgo">Hirota N=2 Bound — Hallazgo central</h2>
-<p><em>Dominio completo <span class="math inline">\(x\in[-5,5]\)</span>, <span class="math inline">\(t\in[0,2\pi]\)</span> · <span class="math inline">\((N_0,N_b,N_f)\)</span>: (50,50,10 000) · Adam 5k · L-BFGS 10k</em></p>
-<div class="dos-tarjetas">
+<section id="hirota-n2-bound-hallazgo-central" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="hirota-n2-bound-hallazgo-central">Hirota N=2 Bound — Hallazgo central</h2>
+<p><span class="slide-subtitulo">Dominio completo <span class="math inline">\(x\in[-5,5]\)</span>, <span class="math inline">\(t\in[0,2\pi]\)</span> · <span class="math inline">\((N_0,N_b,N_f)\)</span>: (50,50,10 000) · Adam 5k · L-BFGS 10k</span></p>
+<div class="dos-col">
 <div>
-<p><strong>Arquitectura [4×80]</strong></p>
+<div class="col-label">
+<p>Arquitectura [4×80]</p>
+</div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Modo BC</th>
-<th style="text-align: center;"><span class="math inline">\(\mathcal{E}_{L_2}\ \|q\|\)</span></th>
-<th style="text-align: center;">Tiempo (min)</th>
+<th>Modo BC</th>
+<th><span class="math inline">\(\mathcal{E}_{L_2}\ \|q\|\)</span></th>
+<th>Tiempo (min)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>No BC</strong></td>
-<td style="text-align: center;"><strong>9.91 × 10⁻³</strong></td>
-<td style="text-align: center;">7.9</td>
+<td><strong>No BC</strong></td>
+<td><span class="mejor"><strong>9.91 × 10⁻³</strong></span></td>
+<td>7.9</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val</td>
-<td style="text-align: center;">1.50 × 10⁻²</td>
-<td style="text-align: center;">9.5</td>
+<td>Val</td>
+<td>1.50 × 10⁻²</td>
+<td>9.5</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Der1</td>
-<td style="text-align: center;">7.84 × 10⁻²</td>
-<td style="text-align: center;">10.5</td>
+<td>Der1</td>
+<td><span class="peor">7.84 × 10⁻²</span></td>
+<td>10.5</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val+Der1</td>
-<td style="text-align: center;">6.57 × 10⁻²</td>
-<td style="text-align: center;">11.8</td>
+<td>Val+Der1</td>
+<td><span class="peor">6.57 × 10⁻²</span></td>
+<td>11.8</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Val+Der1+Der2</td>
-<td style="text-align: center;">6.55 × 10⁻²</td>
-<td style="text-align: center;">12.5</td>
+<td>Val+Der1+Der2</td>
+<td><span class="peor">6.55 × 10⁻²</span></td>
+<td>12.5</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div>
-<p><strong>Arquitectura [5×80]</strong></p>
+<div class="col-label">
+<p>Arquitectura [5×80]</p>
+</div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
-<th style="text-align: left;">Modo BC</th>
-<th style="text-align: center;"><span class="math inline">\(\mathcal{E}_{L_2}\ \|q\|\)</span></th>
-<th style="text-align: center;">Tiempo (min)</th>
+<th>Modo BC</th>
+<th><span class="math inline">\(\mathcal{E}_{L_2}\ \|q\|\)</span></th>
+<th>Tiempo (min)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>No BC</strong></td>
-<td style="text-align: center;"><strong>1.14 × 10⁻²</strong></td>
-<td style="text-align: center;">10.0</td>
+<td><strong>No BC</strong></td>
+<td><span class="mejor"><strong>1.14 × 10⁻²</strong></span></td>
+<td>10.0</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val</td>
-<td style="text-align: center;">1.55 × 10⁻²</td>
-<td style="text-align: center;">12.4</td>
+<td>Val</td>
+<td>1.55 × 10⁻²</td>
+<td>12.4</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Der1</td>
-<td style="text-align: center;">6.86 × 10⁻²</td>
-<td style="text-align: center;">13.5</td>
+<td>Der1</td>
+<td><span class="peor">6.86 × 10⁻²</span></td>
+<td>13.5</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Val+Der1</td>
-<td style="text-align: center;">6.53 × 10⁻²</td>
-<td style="text-align: center;">14.7</td>
+<td>Val+Der1</td>
+<td><span class="peor">6.53 × 10⁻²</span></td>
+<td>14.7</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Val+Der1+Der2</td>
-<td style="text-align: center;">6.55 × 10⁻²</td>
-<td style="text-align: center;">15.9</td>
+<td>Val+Der1+Der2</td>
+<td><span class="peor">6.55 × 10⁻²</span></td>
+<td>15.9</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div class="dos-tarjetas">
 <div class="caja-hallazgo">
-<div class="etiqueta">
-Hallazgo central
-</div>
-<p>Sin BC es el mejor modo en ambas arquitecturas. Imponer derivadas aumenta el error un orden de magnitud (~10⁻²→10⁻¹). La red penaliza restricciones físicamente inconsistentes con los datos — en los bordes no hay dinámica del bound state.</p>
+<p><span class="etiqueta">Hallazgo central</span> Sin BC es el mejor modo en ambas arquitecturas. Imponer derivadas aumenta el error un orden de magnitud (~10⁻²→10⁻¹). La red penaliza restricciones físicamente inconsistentes con los datos — en los bordes no hay dinámica del bound state.</p>
 </div>
 <div class="caja-hipotesis">
-<div class="etiqueta">
-4×80 vs 5×80
+<p><span class="etiqueta">4×80 vs 5×80</span> 4×80 supera a 5×80 en todas las configuraciones con menor tiempo de entrenamiento. Una red más densa no mejora — posible sobreajuste a los datos disponibles. 4×80 es la configuración óptima para este conjunto de datos.</p>
 </div>
-<p>4×80 supera a 5×80 en todas las configuraciones con menor tiempo de entrenamiento. Una red más densa no mejora — posible sobreajuste a los datos disponibles. 4×80 es la configuración óptima para este conjunto de datos.</p>
+<hr>
+</section>
+<section id="convergencia-y-error-instantáneo-por-modo-bc" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="convergencia-y-error-instantáneo-por-modo-bc">Convergencia y error instantáneo por modo BC</h2>
+<div class="dos-col">
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="figures/BC1_loss_comparison.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Pérdida total por modo BC durante entrenamiento Adam + L-BFGS. No BC converge primero y más profundo en Adam."><img src="figures/BC1_loss_comparison.png" class="img-fluid figure-img" alt="Pérdida por modo BC"></a></p>
+<figcaption>Pérdida total por modo BC durante entrenamiento Adam + L-BFGS. No BC converge primero y más profundo en Adam.</figcaption>
+</figure>
+</div>
+</div>
+<div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="figures/BC3_l2_instantaneous.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Error \varepsilon_{L_2}(t) instantáneo. Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio."><img src="figures/BC3_l2_instantaneous.png" class="img-fluid figure-img" alt="Error L2 instantáneo por modo BC"></a></p>
+<figcaption>Error <span class="math inline">\(\varepsilon_{L_2}(t)\)</span> instantáneo. Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="dos-col">
+<div>
+<div class="caja-hipotesis">
+<p><span class="etiqueta">Convergencia</span> No BC converge primero y más profundo en Adam. En L-BFGS, todos los modos con derivadas convergen más lento — la red dedica capacidad a minimizar restricciones inconsistentes con los datos.</p>
+</div>
+</div>
+<div>
+<div class="caja-hallazgo">
+<p><span class="etiqueta">Error instantáneo</span> Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻². El error crece porque la física impuesta en los bordes no está presente en los datos.</p>
+</div>
 </div>
 </div>
 <hr>
 </section>
-<section id="bc-convergencia" class="level2">
-<h2 class="anchored" data-anchor-id="bc-convergencia">Convergencia y error instantáneo por modo BC</h2>
-<div class="dos-figuras">
+<section id="residuo-pde-por-modo-bc" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="residuo-pde-por-modo-bc">Residuo PDE por modo BC</h2>
+<p><span class="slide-subtitulo"><span class="math inline">\(F_\text{mag} = \sqrt{F_u^2 + F_v^2}\)</span> — incumplimiento local de la ecuación de Hirota</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="figures/BC1_loss_comparison.png" class="lightbox" data-gallery="fronteras" title="Pérdida total por modo BC durante entrenamiento Adam + L-BFGS. No BC converge primero y más profundo en Adam. Los modos con derivadas convergen más lento en L-BFGS."><img src="figures/BC1_loss_comparison.png" class="img-fluid figure-img" alt="Pérdida total por modo BC durante entrenamiento Adam + L-BFGS. No BC converge primero y más profundo en Adam. Los modos con derivadas convergen más lento en L-BFGS."></a></p>
-<figcaption>Pérdida total por modo BC durante entrenamiento Adam + L-BFGS. No BC converge primero y más profundo en Adam. Los modos con derivadas convergen más lento en L-BFGS.</figcaption>
+<p><a href="figures/BC2_residual_heatmap.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Mapa de residuo PDE para los 5 modos de condición de frontera. No BC muestra el residuo más uniformemente distribuido."><img src="figures/BC2_residual_heatmap.png" class="img-fluid figure-img" alt="Mapa de residuo PDE por modo BC"></a></p>
+<figcaption>Mapa de residuo PDE para los 5 modos de condición de frontera. No BC muestra el residuo más uniformemente distribuido.</figcaption>
 </figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="figures/BC3_l2_instantaneous.png" class="lightbox" data-gallery="fronteras" title="Error \varepsilon_{L_2}(t) instantáneo. Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻²."><img src="figures/BC3_l2_instantaneous.png" class="img-fluid figure-img" alt="Error \varepsilon_{L_2}(t) instantáneo. Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻²."></a></p>
-<figcaption>Error <span class="math inline">\(\varepsilon_{L_2}(t)\)</span> instantáneo. Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻².</figcaption>
-</figure>
-</div>
-</div>
-<div class="dos-tarjetas">
-<div class="caja-hipotesis">
-<div class="etiqueta">
-Convergencia
-</div>
-<p>No BC converge primero y más profundo en Adam. En L-BFGS, todos los modos con derivadas convergen más lento — la red dedica capacidad a minimizar restricciones inconsistentes con los datos.</p>
 </div>
 <div class="caja-hallazgo">
-<div class="etiqueta">
-Error instantáneo
+<p><span class="etiqueta">Interpretación</span> No BC muestra el residuo más uniformemente distribuido — la red respeta la física en todo el dominio. Los modos con derivadas concentran residuo alto en regiones específicas, especialmente Val+Der1+Der2: la penalización en los bordes distorsiona el aprendizaje de la física interior. <strong>No es suficiente con no imponer fronteras — la física debe estar presente en los datos.</strong></p>
 </div>
-<p>Der1, Val+Der1 y Val+Der1+Der2 acumulan error en el tiempo — alcanzan 10⁻¹ al final del dominio. No BC y Val se mantienen en 10⁻². El error crece porque la física impuesta en los bordes no está presente en los datos.</p>
+<hr>
+</section>
+<section id="estructura-del-error-sin-fronteras" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="estructura-del-error-sin-fronteras">Estructura del error · Sin fronteras</h2>
+<p><span class="slide-subtitulo">Error absoluto + isolíneas <span class="math inline">\(|q_\text{exact}|\)</span> · No BC · [4×80]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="figures/BC5_striae_isolines_Hir_N2Bound_Full_4x80_BC_1_No_BC.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Estrías de error bajo coincidentes con isolíneas de baja amplitud. Las bandas de error bajo (~10⁻⁷) coinciden con regiones de gradientes suaves."><img src="figures/BC5_striae_isolines_Hir_N2Bound_Full_4x80_BC_1_No_BC.png" class="img-fluid figure-img" alt="Estrías de error y isolíneas Bound No BC"></a></p>
+<figcaption>Estrías de error bajo coincidentes con isolíneas de baja amplitud. Las bandas de error bajo (~10⁻⁷) coinciden con regiones de gradientes suaves.</figcaption>
+</figure>
+</div>
+<div class="dos-col">
+<div>
+<div class="caja-hipotesis">
+<p><span class="etiqueta">Estrías de error bajo</span> Las bandas de error bajo (~10⁻⁷) coinciden con las isolíneas de baja amplitud — regiones de gradientes suaves donde la solución varía lentamente. Confirma el patrón observado en NLS y Hirota N=2 Colisión.</p>
+</div>
+</div>
+<div>
+<div class="caja-hallazgo">
+<p><span class="etiqueta">Error alto</span> El error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state — donde la dinámica es más compleja. Consistente con <span class="math inline">\(\rho_1 &lt; 0\)</span> reportado para experimentos convergidos.</p>
+</div>
 </div>
 </div>
 <hr>
 </section>
-<section id="bc-residuo" class="level2">
-<h2 class="anchored" data-anchor-id="bc-residuo">Residuo PDE por modo BC</h2>
-<p><em><span class="math inline">\(F_\text{mag} = \sqrt{F_u^2 + F_v^2}\)</span> — incumplimiento local de la ecuación de Hirota</em></p>
+<section id="conservación-de-mathcalnt-y-flujo-de-frontera" class="level2 slide-titulo">
+<h2 class="slide-titulo anchored" data-anchor-id="conservación-de-mathcalnt-y-flujo-de-frontera">Conservación de <span class="math inline">\(\mathcal{N}(t)\)</span> y flujo de frontera</h2>
+<p><span class="slide-subtitulo">CV<span class="math inline">\(({\mathcal{N}_\text{exact}}) = 1.95\times10^{-4}\)</span> · <span class="math inline">\(\max(\Delta\mathcal{N}_\text{rel})\)</span> entre <span class="math inline">\(4\times10^{-3}\)</span> y <span class="math inline">\(7\times10^{-3}\)</span></span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="figures/BC2_residual_heatmap.png" class="lightbox" data-gallery="fronteras" title="Mapa de residuo PDE para los 5 modos de condición de frontera. No BC muestra el residuo más uniformemente distribuido. Los modos con derivadas concentran residuo alto en regiones específicas — la penalización en los bordes distorsiona el aprendizaje de la física interior."><img src="figures/BC2_residual_heatmap.png" class="fig-grande img-fluid figure-img" alt="Mapa de residuo PDE para los 5 modos de condición de frontera. No BC muestra el residuo más uniformemente distribuido. Los modos con derivadas concentran residuo alto en regiones específicas — la penalización en los bordes distorsiona el aprendizaje de la física interior."></a></p>
-<figcaption>Mapa de residuo PDE para los 5 modos de condición de frontera. No BC muestra el residuo más uniformemente distribuido. Los modos con derivadas concentran residuo alto en regiones específicas — la penalización en los bordes distorsiona el aprendizaje de la física interior.</figcaption>
+<p><a href="figures/K_norm_conservation.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5" title="Conservación de la norma \mathcal{N}(t) para el bound state. La norma no es constante — el dominio truncado genera una fuga estructurada que oscila armónicamente con la frecuencia interna del estado ligado."><img src="figures/K_norm_conservation.png" class="img-fluid figure-img" alt="Conservación norma Bound BC"></a></p>
+<figcaption>Conservación de la norma <span class="math inline">\(\mathcal{N}(t)\)</span> para el bound state. La norma no es constante — el dominio truncado genera una fuga estructurada que oscila armónicamente con la frecuencia interna del estado ligado.</figcaption>
 </figure>
 </div>
-<div class="caja-hallazgo">
-<div class="etiqueta">
-Interpretación
-</div>
-<p>No BC muestra el residuo más uniformemente distribuido — la red respeta la física en todo el dominio. Los modos con derivadas concentran residuo alto en regiones específicas, especialmente Val+Der1+Der2: la penalización en los bordes distorsiona el aprendizaje de la física interior. <strong>No es suficiente con no imponer fronteras — la física debe estar presente en los datos.</strong></p>
-</div>
-<hr>
-</section>
-<section id="bc-estrias" class="level2">
-<h2 class="anchored" data-anchor-id="bc-estrias">Estructura del error · Sin fronteras</h2>
-<p><em>Error absoluto + isolíneas <span class="math inline">\(|q_\text{exact}|\)</span> · No BC · [4×80]</em></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="figures/BC5_striae_isolines_Hir_N2Bound_Full_4x80_BC_1_No_BC.png" class="lightbox" data-gallery="fronteras" title="Estrías de error bajo coincidentes con isolíneas de baja amplitud. Las bandas de error bajo (~10⁻⁷) coinciden con regiones de gradientes suaves. El error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state."><img src="figures/BC5_striae_isolines_Hir_N2Bound_Full_4x80_BC_1_No_BC.png" class="fig-grande img-fluid figure-img" alt="Estrías de error bajo coincidentes con isolíneas de baja amplitud. Las bandas de error bajo (~10⁻⁷) coinciden con regiones de gradientes suaves. El error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state."></a></p>
-<figcaption>Estrías de error bajo coincidentes con isolíneas de baja amplitud. Las bandas de error bajo (~10⁻⁷) coinciden con regiones de gradientes suaves. El error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state.</figcaption>
-</figure>
-</div>
-<div class="dos-tarjetas">
+<div class="dos-col">
+<div>
 <div class="caja-hipotesis">
-<div class="etiqueta">
-Estrías de error bajo
+<p><span class="etiqueta">Fuga de norma estructurada</span> <span class="math inline">\(\mathcal{N}_\text{exact}\)</span> no es constante — el dominio <span class="math inline">\([-5,5]\)</span> trunca las colas del bound state y la norma “escapa” por los bordes. El flujo de frontera oscila armónicamente con la frecuencia interna del estado ligado — es física del sistema, no artefacto numérico.</p>
 </div>
-<p>Las bandas de error bajo (~10⁻⁷) coinciden con las isolíneas de baja amplitud — regiones de gradientes suaves donde la solución varía lentamente. Confirma el patrón observado en NLS y Hirota N=2 Colisión.</p>
 </div>
+<div>
 <div class="caja-hallazgo">
-<div class="etiqueta">
-Error alto
+<p><span class="etiqueta">La PINN aprende la dinámica presente</span> La red sigue fielmente la evolución de <span class="math inline">\(\mathcal{N}_\text{exact}\)</span>, incluyendo la fuga estructurada. El patrón armónico del flujo es capturado sin imposición explícita — la conservación inherente se extiende a la dinámica de frontera presente en los datos.</p>
 </div>
-<p>El error máximo (~10⁻²) aparece en las regiones de mayor amplitud y gradiente del bound state — donde la dinámica es más compleja. Consistente con <span class="math inline">\(\rho_1 &lt; 0\)</span> reportado para experimentos convergidos.</p>
-</div>
-</div>
-<hr>
-</section>
-<section id="bc-norma" class="level2">
-<h2 class="anchored" data-anchor-id="bc-norma">Conservación de <span class="math inline">\(\mathcal{N}(t)\)</span> y flujo de frontera</h2>
-<p><em>CV<span class="math inline">\(({\mathcal{N}_\text{exact}}) = 1.95\times10^{-4}\)</span> · <span class="math inline">\(\max(\Delta\mathcal{N}_\text{rel})\)</span> entre <span class="math inline">\(4\times10^{-3}\)</span> y <span class="math inline">\(7\times10^{-3}\)</span></em></p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="figures/K_norm_conservation.png" class="lightbox" data-gallery="fronteras" title="Conservación de la norma \mathcal{N}(t) para el bound state. La norma no es constante — el dominio truncado genera una fuga estructurada que oscila armónicamente con la frecuencia interna del estado ligado. La PINN sigue fielmente esta dinámica."><img src="figures/K_norm_conservation.png" class="fig-grande img-fluid figure-img" alt="Conservación de la norma \mathcal{N}(t) para el bound state. La norma no es constante — el dominio truncado genera una fuga estructurada que oscila armónicamente con la frecuencia interna del estado ligado. La PINN sigue fielmente esta dinámica."></a></p>
-<figcaption>Conservación de la norma <span class="math inline">\(\mathcal{N}(t)\)</span> para el bound state. La norma no es constante — el dominio truncado genera una fuga estructurada que oscila armónicamente con la frecuencia interna del estado ligado. La PINN sigue fielmente esta dinámica.</figcaption>
-</figure>
-</div>
-<div class="dos-tarjetas">
-<div class="caja-hipotesis">
-<div class="etiqueta">
-Fuga de norma estructurada
-</div>
-<p><span class="math inline">\(\mathcal{N}_\text{exact}\)</span> no es constante — el dominio <span class="math inline">\([-5,5]\)</span> trunca las colas del bound state y la norma “escapa” por los bordes. El flujo de frontera oscila armónicamente con la frecuencia interna del estado ligado — es física del sistema, no artefacto numérico.</p>
-</div>
-<div class="caja-hallazgo">
-<div class="etiqueta">
-La PINN aprende la dinámica presente
-</div>
-<p>La red sigue fielmente la evolución de <span class="math inline">\(\mathcal{N}_\text{exact}\)</span>, incluyendo la fuga estructurada. El patrón armónico del flujo es capturado sin imposición explícita — la conservación inherente se extiende a la dinámica de frontera presente en los datos.</p>
 </div>
 </div>
 
